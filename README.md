@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OKIU — Site vitrine
 
-## Getting Started
+Site vitrine statique du copilote OKIU (dirigeants de magasins d'optique indépendants). Next.js 16, App Router, export 100 % statique — aucun backend, aucune API route.
 
-First, run the development server:
+Voir `CLAUDE.md` pour les décisions de projet, le design system et le plan d'implémentation détaillé.
+
+## Installation
+
+```bash
+npm install
+```
+
+## Développement
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+Génère l'export statique dans `out/` (`output: 'export'` dans `next.config.ts`).
 
-To learn more about Next.js, take a look at the following resources:
+Pour vérifier l'export localement avant déploiement :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npx serve out
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Variables d'environnement
 
-## Deploy on Vercel
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_FORM_ENDPOINT` | URL du service d'envoi du formulaire « Devenir magasin pilote » (Web3Forms). Sans elle, la soumission affiche l'état d'erreur avec le lien `mailto:` de secours. |
+| `NEXT_PUBLIC_FORM_ACCESS_KEY` | Clé d'accès Web3Forms (obtenue sur [web3forms.com](https://web3forms.com), sans création de compte). Publique par nature (exposée côté client), à verrouiller au domaine de prod dans le dashboard Web3Forms. |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Créer un fichier `.env.local` (non versionné) :
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+NEXT_PUBLIC_FORM_ENDPOINT=https://api.web3forms.com/submit
+NEXT_PUBLIC_FORM_ACCESS_KEY=colle-ta-clé-ici
+```
+
+## Déploiement
+
+Hébergement cible : Vercel (export statique). Ne jamais déployer sur l'infrastructure Ver'Optic.
+
+1. Connecter le dépôt Git au projet Vercel.
+2. Renseigner `NEXT_PUBLIC_FORM_ENDPOINT` et `NEXT_PUBLIC_FORM_ACCESS_KEY` dans les variables d'environnement du projet Vercel.
+3. Vérifier le domaine et le HTTPS.
+4. Tester le formulaire de bout en bout en production.
+
+## Structure
+
+Voir la section « Arborescence cible » de `CLAUDE.md`. En résumé :
+
+- `content/site.ts` — tous les textes du site (source unique).
+- `components/` — un composant par section, autonome.
+- `styles/tokens.css` / `styles/globals.css` — design system.
+- `app/` — routes (`/`, `/mentions-legales`, `/confidentialite`), `sitemap.ts`, `robots.ts`.

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charly — Le temps rendu à l'opticien</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,560&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F4F6F6;
+    --surface: #FFFFFF;
+    --ink: #12181B;
+    --ink-soft: #52616B;
+    --ink-faint: #8A9AA0;
+    --teal: #1F6F63;
+    --teal-deep: #16544B;
+    --amber: #C97A3D;
+    --line: #E0E5E4;
+    --radius: 20px;
+    --maxw: 1120px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{
+    font-family: 'Fraunces', serif;
+    font-weight: 560;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--ink);
+  }
+  a{ color: inherit; }
+  img,svg{ display:block; }
+  .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 18px;
+  }
+  .eyebrow::before{
+    content:""; width: 7px; height:7px; border-radius:50%; background: var(--teal);
+  }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding: 14px 26px; border-radius: 999px; font-weight: 600; font-size: 15px;
+    text-decoration:none; border: 1px solid transparent; cursor:pointer;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn:focus-visible{ outline: 2px solid var(--teal); outline-offset: 3px; }
+  .btn-primary{ background: var(--ink); color: #fff; }
+  .btn-primary:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(18,24,27,.18); }
+  .btn-ghost{ background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover{ border-color: var(--ink); }
+
+  /* NAV */
+  header{
+    position: fixed; top:0; left:0; right:0; z-index: 50;
+    background: rgba(244,246,246,0.78);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.wrap{ display:flex; align-items:center; justify-content:space-between; height: 76px; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-weight:560; font-size:20px; text-decoration:none; }
+  .logo-mark{ width:26px; height:26px; position:relative; flex:none; }
+  .logo-mark span{ position:absolute; border-radius:50%; }
+  .logo-mark .a{ width:26px; height:26px; border:1.6px solid var(--teal); top:0; left:0; }
+  .logo-mark .b{ width:11px; height:11px; background: var(--amber); top:8px; left:8px; }
+  .nav-links{ display:flex; align-items:center; gap:28px; }
+  .nav-links a{ font-size:14px; font-weight:500; text-decoration:none; color: var(--ink-soft); }
+  .nav-links a:hover{ color: var(--ink); }
+  .nav-cta{ display:none; }
+  @media (min-width: 720px){ .nav-cta{ display:inline-flex; } }
+
+  section{ padding: 120px 0; }
+  @media (max-width: 720px){ section{ padding: 84px 0; } }
+  .section-line{ border-top:1px solid var(--line); }
+
+  /* HERO */
+  .hero{ padding-top: 168px; padding-bottom: 96px; }
+  .hero-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items:center; }
+  @media (max-width: 900px){ .hero-grid{ grid-template-columns: 1fr; gap: 56px; } }
+  .hero h1{ font-size: clamp(34px, 5vw, 54px); line-height: 1.08; }
+  .hero p.lead{ font-size: 18px; color: var(--ink-soft); max-width: 460px; margin: 22px 0 32px; }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+  .hero-note{ margin-top:18px; font-size:13.5px; color: var(--ink-faint); }
+
+  /* PHONE MOCKUP */
+  .phone-stage{ display:flex; justify-content:center; }
+  .phone{
+    width: 292px; background: var(--ink); border-radius: 42px; padding: 14px;
+    box-shadow: 0 40px 80px -20px rgba(18,24,27,.35), 0 0 0 1px rgba(18,24,27,.05);
+  }
+  .phone-screen{ background: var(--surface); border-radius: 30px; overflow:hidden; }
+  .phone-notch{ height: 22px; display:flex; align-items:center; justify-content:center; }
+  .phone-notch .pill{ width:56px; height:6px; border-radius:4px; background: var(--ink); opacity:.85; }
+  .phone-top{ padding: 4px 20px 16px; }
+  .phone-top .ptitle{ font-family:'Fraunces',serif; font-weight:560; font-size:17px; }
+  .phone-top .psub{ font-size:12px; color: var(--ink-faint); margin-top:2px; }
+  .phone-list{ padding: 0 12px 18px; display:flex; flex-direction:column; gap:8px; }
+  .p-item{ display:flex; gap:10px; align-items:flex-start; padding:12px; border-radius:14px; background:#F6F7F6; border:1px solid var(--line); }
+  .p-item.attn{ background:#FBF2E8; border-color:#F0D8BC; }
+  .dot{ width:9px; height:9px; border-radius:50%; margin-top:5px; flex:none; }
+  .dot.ok{ background: var(--teal); }
+  .dot.warn{ background: var(--amber); }
+  .p-item .t{ font-size:13px; font-weight:600; }
+  .p-item .s{ font-size:11.5px; color: var(--ink-soft); margin-top:2px; }
+  .phone-tab{ display:flex; border-top:1px solid var(--line); }
+  .phone-tab div{ flex:1; text-align:center; font-size:10.5px; padding:12px 0; color: var(--ink-faint); font-weight:600; letter-spacing:.03em; }
+  .phone-tab div.active{ color: var(--ink); box-shadow: inset 0 2px 0 var(--teal); }
+
+  /* PROBLEM */
+  .problem-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items:start; }
+  @media (max-width: 860px){ .problem-grid{ grid-template-columns:1fr; gap:40px; } }
+  .problem-grid h2{ font-size: clamp(28px,3.6vw,38px); line-height:1.15; }
+  .problem-grid p{ color: var(--ink-soft); font-size:16.5px; margin-top:18px; max-width: 480px; }
+  .chip-cloud{ display:flex; flex-wrap:wrap; gap:10px; }
+  .chip{
+    font-size:13.5px; font-weight:500; color: var(--ink-soft);
+    background: var(--surface); border:1px solid var(--line); border-radius: 999px;
+    padding: 10px 16px;
+  }
+  .chip.hot{ color: var(--teal-deep); border-color: rgba(31,111,99,.28); background: rgba(31,111,99,.06); font-weight:600; }
+
+  /* SOLUTION */
+  .solution-head{ max-width: 640px; margin-bottom: 56px; }
+  .solution-head h2{ font-size: clamp(28px,3.6vw,38px); line-height:1.15; }
+  .cards3{ display:grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  @media (max-width: 900px){ .cards3{ grid-template-columns:1fr; } }
+  .card{ background: var(--surface); border:1px solid var(--line); border-radius: var(--radius); padding: 30px 26px; }
+  .card .num{ font-family:'Fraunces',serif; font-size:14px; color: var(--ink-faint); margin-bottom:16px; }
+  .card h3{ font-size:19px; margin-bottom:10px; }
+  .card p{ color: var(--ink-soft); font-size:14.5px; }
+
+  /* PARCOURS */
+  .journey{ background: var(--surface); }
+  .journey-head{ max-width:640px; margin-bottom:64px; }
+  .journey-head h2{ font-size: clamp(28px,3.6vw,38px); line-height:1.15; }
+  .timeline{ position:relative; padding-left: 56px; }
+  .timeline::before{ content:""; position:absolute; left:19px; top:8px; bottom:8px; width:1.5px; background: var(--line); }
+  .tl-item{ position:relative; padding-bottom: 48px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-ring{
+    position:absolute; left:-56px; top:0; width:40px; height:40px; border-radius:50%;
+    background: var(--bg); border:1.5px solid var(--teal); color: var(--teal-deep);
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px;
+    font-family:'Fraunces',serif;
+  }
+  .tl-item h3{ font-size:19px; margin-bottom:8px; }
+  .tl-item p{ color: var(--ink-soft); font-size:15px; max-width: 560px; }
+
+  /* TRUST */
+  .trust-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:64px; align-items:center; }
+  @media (max-width: 900px){ .trust-grid{ grid-template-columns:1fr; gap:40px; } }
+  .trust-grid h2{ font-size: clamp(28px,3.6vw,38px); line-height:1.15; }
+  .trust-grid > div > p.lead{ color: var(--ink-soft); font-size:16.5px; margin: 18px 0 26px; max-width:480px; }
+  .trust-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:16px; }
+  .trust-list li{ display:flex; gap:12px; align-items:flex-start; font-size:15px; color: var(--ink); }
+  .check{ flex:none; width:20px; height:20px; border-radius:50%; background: rgba(31,111,99,.1); display:flex; align-items:center; justify-content:center; margin-top:1px; }
+  .check svg{ width:11px; height:11px; }
+  .journal-card{ background: var(--bg); border:1px solid var(--line); border-radius: var(--radius); padding: 26px; }
+  .journal-card .jh{ font-size:12.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color: var(--ink-faint); margin-bottom:16px; }
+  .journal-row{ display:flex; justify-content:space-between; gap:12px; padding:13px 0; border-top:1px solid var(--line); font-size:13.5px; }
+  .journal-row:first-of-type{ border-top:none; }
+  .journal-row .l{ color: var(--ink); font-weight:500; }
+  .journal-row .r{ color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+
+  /* PILOTE / QUOTE */
+  .pilot{ text-align:center; }
+  .pilot blockquote{ margin:0 auto; max-width: 700px; font-family:'Fraunces',serif; font-weight:440; font-size: clamp(22px,3vw,30px); line-height:1.35; color: var(--ink); }
+  .pilot cite{ display:block; font-style:normal; margin-top:22px; font-size:14px; color: var(--ink-faint); font-family:'Inter',sans-serif; }
+
+  /* CTA FINAL */
+  .cta-final{ background: var(--ink); color:#fff; border-radius: 28px; padding: 72px 48px; text-align:center; margin: 0 32px; }
+  @media (max-width:720px){ .cta-final{ padding:52px 26px; margin:0 16px; } }
+  .cta-final h2{ color:#fff; font-size: clamp(28px,4vw,42px); line-height:1.12; }
+  .cta-final p{ color: rgba(255,255,255,.68); font-size:16.5px; max-width:480px; margin: 18px auto 34px; }
+  .cta-final .btn-primary{ background:#fff; color: var(--ink); }
+  .cta-final .btn-primary:hover{ box-shadow: 0 10px 24px rgba(0,0,0,.28); }
+
+  footer{ padding: 56px 0 48px; }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .footer-row .logo{ font-size:16px; }
+  footer .tag{ font-size:13px; color: var(--ink-faint); }
+
+  .reveal{ opacity:0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#" class="logo"><span class="logo-mark"><span class="a"></span><span class="b"></span></span>Charly</a>
+    <div class="nav-links">
+      <a href="#parcours">Comment ça marche</a>
+      <a href="#confiance">La confiance</a>
+      <a href="#cta" class="btn btn-primary nav-cta">Demander une démo</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Pour les dirigeants de magasins d'optique</div>
+        <h1>Votre temps appartient<br>à vos clients.<br>Pas à la paperasse.</h1>
+        <p class="lead">Charly observe vos outils habituels, vérifie vos dossiers de bout en bout, et n'interrompt votre journée que pour les décisions qui comptent vraiment.</p>
+        <div class="hero-ctas">
+          <a href="#parcours" class="btn btn-primary">Voir comment ça marche</a>
+          <a href="#cta" class="btn btn-ghost">Demander une démo</a>
+        </div>
+        <div class="hero-note">Aucun nouveau logiciel à apprendre. Aucun changement d'habitude.</div>
+      </div>
+      <div class="phone-stage">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-notch"><div class="pill"></div></div>
+            <div class="phone-top">
+              <div class="ptitle">Aujourd'hui</div>
+              <div class="psub">2 décisions en attente</div>
+            </div>
+            <div class="phone-list">
+              <div class="p-item attn">
+                <span class="dot warn"></span>
+                <div><div class="t">Pièce manquante — Dossier Martin</div><div class="s">Ordonnance à confirmer avant envoi</div></div>
+              </div>
+              <div class="p-item attn">
+                <span class="dot warn"></span>
+                <div><div class="t">Rejet à traiter — Dossier #474</div><div class="s">Motif : date de naissance incohérente</div></div>
+              </div>
+              <div class="p-item">
+                <span class="dot ok"></span>
+                <div><div class="t">Demande envoyée — Dossier #482</div><div class="s">Traité automatiquement, 08:41</div></div>
+              </div>
+              <div class="p-item">
+                <span class="dot ok"></span>
+                <div><div class="t">Accusé reçu — Dossier #479</div><div class="s">Traité automatiquement, 08:22</div></div>
+              </div>
+            </div>
+            <div class="phone-tab">
+              <div class="active">Décisions</div>
+              <div>Journal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section-line reveal">
+    <div class="wrap problem-grid">
+      <div>
+        <div class="eyebrow">Le problème</div>
+        <h2>Chaque vente laisse<br>une trace invisible.</h2>
+        <p>Derrière chaque paire de lunettes vendue, un dossier se met en route&nbsp;: vérifier l'ordonnance, contrôler la prise en charge, rapprocher les documents, suivre le remboursement, relancer en cas de rejet. Ce travail ne se voit jamais au comptoir. Il se voit dans votre emploi du temps.</p>
+      </div>
+      <div class="chip-cloud">
+        <span class="chip hot">Contrôle des ordonnances</span>
+        <span class="chip hot">Vérification des prises en charge</span>
+        <span class="chip">Rapprochement des documents</span>
+        <span class="chip hot">Suivi des remboursements</span>
+        <span class="chip">Traitement des rejets</span>
+        <span class="chip">Relances administratives</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="reveal">
+    <div class="wrap">
+      <div class="solution-head">
+        <div class="eyebrow">La solution</div>
+        <h2>Un copilote qui s'installe<br>au-dessus de vos outils,<br>pas à leur place.</h2>
+      </div>
+      <div class="cards3">
+        <div class="card">
+          <div class="num">01</div>
+          <h3>Il observe</h3>
+          <p>Charly regarde votre logiciel habituel et vos e-mails, sans rien changer à vos habitudes de travail ni à vos outils.</p>
+        </div>
+        <div class="card">
+          <div class="num">02</div>
+          <h3>Il vérifie et agit</h3>
+          <p>Quand une tâche est fiable et bien maîtrisée, Charly l'exécute lui-même&nbsp;: recherche du dossier, envoi de la demande, suivi de la réponse.</p>
+        </div>
+        <div class="card">
+          <div class="num">03</div>
+          <h3>Il vous alerte si besoin</h3>
+          <p>Erreur, ambiguïté, dossier incomplet&nbsp;: Charly s'arrête et vous prévient. Jamais d'action à l'aveugle.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCOURS -->
+  <section id="parcours" class="journey section-line reveal">
+    <div class="wrap">
+      <div class="journey-head">
+        <div class="eyebrow">Le parcours, concrètement</div>
+        <h2>Une journée avec Charly</h2>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-ring">1</div>
+          <h3>Une vente est enregistrée</h3>
+          <p>Vous encaissez normalement, comme toujours. Charly voit le dossier passer, sans rien changer à votre façon de travailler.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-ring">2</div>
+          <h3>Charly vérifie le dossier</h3>
+          <p>Assuré, prise en charge, pièces jointes&nbsp;: si tout est en ordre, il envoie lui-même la demande à la mutuelle.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-ring">3</div>
+          <h3>Il suit la réponse</h3>
+          <p>Accusé reçu, rejet, silence&nbsp;: Charly contrôle ce qui revient et comprend pourquoi, sans que vous ayez à aller chercher l'information.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-ring">4</div>
+          <h3>Vous recevez une liste courte</h3>
+          <p>Sur votre téléphone, seulement les décisions qui ont vraiment besoin de vous&nbsp;: une erreur, un rejet, un dossier incomplet.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-ring">5</div>
+          <h3>Vous décidez, Charly garde la mémoire</h3>
+          <p>Un geste suffit. Tout ce que Charly a fait automatiquement reste consultable à tout moment, dans un journal clair.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section id="confiance" class="reveal">
+    <div class="wrap trust-grid">
+      <div>
+        <div class="eyebrow">La confiance d'abord</div>
+        <h2>Jamais d'exécution à l'aveugle.</h2>
+        <p class="lead">Charly commence toujours en mode supervisé&nbsp;: chaque envoi automatique reste visible avant d'être confirmé, le temps de construire la confiance à votre rythme.</p>
+        <ul class="trust-list">
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5L4.5 9L10 3" stroke="#1F6F63" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Tout est tracé, à tout moment consultable</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5L4.5 9L10 3" stroke="#1F6F63" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Rien ne s'automatise tant que ce n'est pas fiable</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5L4.5 9L10 3" stroke="#1F6F63" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Vous gardez toujours la main sur les décisions</li>
+        </ul>
+      </div>
+      <div class="journal-card">
+        <div class="jh">Journal d'actions</div>
+        <div class="journal-row"><span class="l">Demande envoyée — Dossier #482</span><span class="r">08:41</span></div>
+        <div class="journal-row"><span class="l">Accusé reçu — Dossier #479</span><span class="r">08:22</span></div>
+        <div class="journal-row"><span class="l">Rejet qualifié — Dossier #474</span><span class="r">08:05</span></div>
+        <div class="journal-row"><span class="l">Demande envoyée — Dossier #471</span><span class="r">07:58</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILOT -->
+  <section class="pilot section-line reveal">
+    <div class="wrap">
+      <blockquote>
+        « Charly est aujourd'hui testé en conditions réelles chez Ver'Optic, magasin pilote du programme. »
+        <cite>Programme pilote — 2026</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section id="cta" class="reveal">
+    <div class="cta-final">
+      <h2>Rendez du temps<br>à votre métier.</h2>
+      <p>Rejoignez le programme pilote et découvrez ce que Charly peut changer dans votre quotidien.</p>
+      <a href="#" class="btn btn-primary">Demander une démonstration</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <a href="#" class="logo"><span class="logo-mark"><span class="a"></span><span class="b"></span></span>Charly</a>
+    <div class="tag">Le temps rendu à l'opticien.</div>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(el=> io.observe(el));
+  } else {
+    els.forEach(el=> el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+:root {
+  --bg: #f4f6f6; /* fond général */
+  --surface: #ffffff; /* cartes, panneaux */
+  --ink: #12181b; /* texte principal */
+  --ink-soft: #52616b; /* texte secondaire */
+  --ink-faint: #8a9aa0; /* contraste limite : réservé aux éléments décoratifs, jamais au texte porteur de sens */
+  --teal: #1f6f63; /* accent principal */
+  --teal-deep: #16544b;
+  --amber: #c97a3d; /* accent secondaire (parcimonie) */
+  --line: #e0e5e4; /* bordures */
+  --radius: 20px;
+  --maxw: 1120px;
+  --header-h: 76px;
+}

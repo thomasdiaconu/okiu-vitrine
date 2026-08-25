@@ -289,6 +289,16 @@ export const site = {
     backLabel: "← Retour à l'accueil",
   },
 
+  notFound: {
+    eyebrow: "Erreur 404",
+    title: "Cette page n'existe pas",
+    text: "Le lien suivi est peut-être obsolète, ou l'adresse comporte une erreur. Vous pouvez repartir de l'accueil ou nous contacter directement.",
+    links: [
+      { label: "Retour à l'accueil", href: "/" },
+      { label: "Devenir magasin pilote", href: "/#devenir-pilote" },
+    ],
+  },
+
   mentionsLegales: {
     title: "Mentions légales",
     intro: `${BRAND} est édité par [À COMPLÉTER].`,
@@ -345,7 +355,7 @@ export const site = {
       {
         heading: "Cookies et mesure d'audience",
         paragraphs: [
-          "Ce site n'utilise aucun cookie. La mesure d'audience, si elle est activée, est réalisée sans identifiant ni cookie, via un outil respectueux de la vie privée ([À COMPLÉTER] — outil retenu).",
+          "Ce site n'utilise aucun cookie. La mesure d'audience est réalisée avec Vercel Analytics, sans identifiant ni cookie, sans suivi individuel des visiteurs d'une visite à l'autre.",
         ],
       },
       {

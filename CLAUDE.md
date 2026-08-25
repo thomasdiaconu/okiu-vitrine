@@ -23,7 +23,7 @@ Objectif du site : crédibiliser OKIU auprès d'un opticien qui le découvre en 
 - **Langue : français uniquement.** Tout le contenu, les commentaires utiles et les messages d'erreur visibles sont en français.
 - **Marque : OKIU** (typographie standard, sans caractère spécial). Règles :
   - Définir une constante `BRAND = "OKIU"` dans `content/site.ts` et l'utiliser partout ; ne jamais retaper le nom à la main dans les composants.
-  - Identifiants techniques en ASCII minuscule : dépôt, dossiers, URLs, domaine, emails restent `okiu` (ex. `okiu-vitrine`, `okiu-optique.fr`).
+  - Identifiants techniques en ASCII minuscule : dépôt, dossiers, URLs, domaine, emails restent `okiu` (ex. `okiu-vitrine`, `okiu.fr`).
 - Déploiement : Vercel (ou équivalent statique). Jamais sur l'infrastructure Ver'Optic.
 
 ## 3. Design system (source : maquette `charly-site-vitrine.html`)
@@ -251,8 +251,8 @@ Ordre : d'abord les sections existantes dans la maquette (portage), puis les nou
   > 2026-08-24 : `--ink-faint` (ratio ~2.7:1, sous le seuil AA même en grand texte) était utilisé sur du texte porteur de sens dans `styles/globals.css` (note hero, sous-titre du téléphone, onglets, journal, footer, citation pilote) — remplacé partout par `--ink-soft` (≥ 5.9:1). Ajout d'un skip-link (« Aller au contenu ») en tête de `app/layout.tsx` vers `#contenu` (ajouté sur les deux `<main>`, page d'accueil et pages légales). `:focus-visible` déjà en place sur boutons, liens, FAQ et champs de formulaire. `prefers-reduced-motion` déjà correctement neutralisé (`.reveal`, `scroll-behavior`, FAQ). Corrigé au passage l'écart Phase 4 : le message d'erreur du formulaire affiche maintenant `errorMailto` en lien `mailto:` cliquable (`components/Cta.tsx`).
 - [x] Lighthouse (build de prod, mobile) : **≥ 95 sur les 4 axes**. Corriger avant de continuer.
   > 2026-08-24 : `npm run build` + `npx serve out` + `lighthouse` (émulation mobile par défaut) → Performance 96, Accessibilité 100, Bonnes pratiques 100, SEO 100. Seul point non parfait : LCP ≈ 2.8 s (audit `largest-contentful-paint`, score 0.84) — sous throttling mobile simulé, sans incidence sur le seuil de sortie.
-- [ ] Analytics sans cookies branché.
-  > 2026-08-24 : choix explicitement reporté par le dirigeant (« aucun pour l'instant ») — ni Plausible ni Vercel Analytics installés. À rebrancher avant la Phase 8 ; mettre à jour `content/site.ts` (`confidentialite`, section « Cookies et mesure d'audience ») une fois l'outil choisi.
+- [x] Analytics sans cookies branché.
+  > 2026-08-24 : choix initialement reporté par le dirigeant (« aucun pour l'instant »). Branché le 2026-08-25 dans le cadre du chantier SEO (`CLAUDE-seo.md` §3.3) : **Vercel Analytics** — `npm install @vercel/analytics`, `<Analytics />` dans `app/layout.tsx`, `content/site.ts` (`confidentialite`, section « Cookies et mesure d'audience ») mis à jour pour nommer l'outil. Vérifié en local (build propre, script présent dans le bundle JS) ; pas encore commité/déployé, collecte réelle non vérifiable avant mise en production.
 - [x] `README.md` : installation, développement, build, déploiement, variable `NEXT_PUBLIC_FORM_ENDPOINT`.
 - [x] Relecture finale des textes `// DRAFT` — signaler la liste pour validation humaine.
   > 2026-08-24 : aucun marqueur `// DRAFT` restant dans `content/site.ts` (textes de `docs/textes.md` déjà portés tels quels en Phase 1). Placeholders `[À COMPLÉTER]` restants, à valider par un humain avant mise en ligne : email de contact (`CONTACT_EMAIL`), raison sociale/SIREN/siège et directeur de publication (mentions légales), durée de conservation des données du formulaire et nom de l'outil d'analytics (confidentialité). `SITE_URL` (`https://okiu.ai`) reste provisoire, à confirmer avant la Phase 8.

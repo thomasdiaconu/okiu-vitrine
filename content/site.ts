@@ -52,7 +52,7 @@ export const site = {
   hero: {
     eyebrow: "Pour les dirigeants de magasins d'optique",
     title: "Votre temps appartient à vos clients. Pas à la paperasse.",
-    lead: `${BRAND} observe vos outils habituels, vérifie vos dossiers de bout en bout, et n'interrompt votre journée que pour les décisions qui comptent vraiment.`,
+    lead: `${BRAND} automatise la gestion du tiers payant de votre magasin d'optique : il observe vos outils habituels, vérifie vos dossiers de bout en bout, et n'interrompt votre journée que pour les décisions qui comptent vraiment.`,
     ctaPrimary: { label: "Devenir magasin pilote", href: "#devenir-pilote" } satisfies CtaLink,
     ctaSecondary: { label: "Voir comment ça marche", href: "#parcours" } satisfies CtaLink,
     note: "Aucun nouveau logiciel à apprendre. Aucun changement d'habitude.",
@@ -89,7 +89,10 @@ export const site = {
   probleme: {
     eyebrow: "Le problème",
     title: "Chaque vente laisse un dossier de tiers payant invisible.",
-    text: "Derrière chaque paire de lunettes vendue, un dossier se met en route : vérifier l'ordonnance, contrôler la prise en charge, rapprocher les documents, suivre le remboursement, relancer en cas de rejet. Ce travail ne se voit jamais au comptoir. Il se voit dans votre emploi du temps.",
+    paragraphs: [
+      "Derrière chaque paire de lunettes vendue, un dossier se met en route : vérifier l'ordonnance, contrôler la prise en charge, rapprocher les documents, suivre le remboursement, relancer en cas de rejet. Ce travail ne se voit jamais au comptoir. Il se voit dans votre emploi du temps.",
+      "Ce temps administratif ne s'additionne jamais en une seule tâche : c'est une relance ici, une pièce manquante à réclamer là, un dossier incomplet qu'il faut reprendre depuis le début parce que la télétransmission n'est pas passée. Le résultat est le même chaque soir : une fin de journée qui déborde sur l'administratif plutôt que sur autre chose.",
+    ],
     chips: [
       { label: "Contrôle des ordonnances", hot: true },
       { label: "Vérification des prises en charge", hot: true },
@@ -102,7 +105,8 @@ export const site = {
 
   solution: {
     eyebrow: "La solution",
-    title: "Un copilote qui s'installe au-dessus de vos outils et de vos mutuelles, pas à leur place.",
+    title: "Un copilote qui automatise le tiers payant au-dessus de vos outils et de vos mutuelles, pas à leur place.",
+    lead: `Concrètement, ${BRAND} relie ce qui aujourd'hui reste séparé : votre logiciel métier, vos e-mails, et les plateformes des mutuelles où se joue la prise en charge. Il ne remplace aucun de ces outils, il les fait parler entre eux.`,
     piliers: [
       {
         num: "01",
@@ -139,7 +143,7 @@ export const site = {
       {
         num: 3,
         title: "Il suit la réponse",
-        text: `Accusé reçu, rejet, silence : ${BRAND} contrôle ce qui revient et comprend pourquoi, sans que vous ayez à aller chercher l'information.`,
+        text: `Accusé de réception, rejet et son motif, silence, statut du remboursement : ${BRAND} suit ce qui revient de la mutuelle et comprend pourquoi, sans que vous ayez à aller chercher l'information.`,
       },
       {
         num: 4,
@@ -370,7 +374,7 @@ export const site = {
   seo: {
     home: {
       title: `${BRAND} — Automatisez le tiers payant de votre magasin d'optique`,
-      description: `${BRAND} automatise le tiers payant de votre magasin d'optique et ne vous sollicite que pour les décisions qui comptent. Déjà testé chez Ver'Optic.`,
+      description: `${BRAND} automatise la gestion du tiers payant de votre magasin d'optique et ne vous sollicite que pour les décisions qui comptent. Déjà testé chez Ver'Optic.`,
     },
     mentionsLegales: {
       description: `Mentions légales du site vitrine ${BRAND} : éditeur, hébergement, contact et propriété intellectuelle.`,

@@ -573,6 +573,12 @@ footer .tag {
   line-height: 1.15;
 }
 
+.solution-head p.lead {
+  color: var(--ink-soft);
+  font-size: 16.5px;
+  margin: 18px 0 0;
+}
+
 .cards3 {
   display: grid;
   grid-template-columns: 1fr;

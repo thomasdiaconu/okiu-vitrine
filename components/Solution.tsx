@@ -11,6 +11,7 @@ export default function Solution() {
           <div className="solution-head">
             <div className="eyebrow">{solution.eyebrow}</div>
             <h2>{solution.title}</h2>
+            <p className="lead">{solution.lead}</p>
           </div>
           <div className="cards3">
             {solution.piliers.map((pilier) => (

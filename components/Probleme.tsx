@@ -11,7 +11,9 @@ export default function Probleme() {
           <div>
             <div className="eyebrow">{probleme.eyebrow}</div>
             <h2>{probleme.title}</h2>
-            <p>{probleme.text}</p>
+            {probleme.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
           <div className="chip-cloud">
             {probleme.chips.map((chip) => (

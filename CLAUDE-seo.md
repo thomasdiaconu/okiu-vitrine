@@ -514,12 +514,21 @@ Séquence par rapport impact/effort. **Ne pas produire de contenu neuf avant la 
 
 ### Sprint 1 — Corriger et enrichir l'accueil · ~1 jour
 
-- [ ] Réécrire le chapô sous le H1 pour y faire entrer « tiers payant » et « magasin d'optique » — §4.1 #1
-- [ ] Réécrire le H2 de la section Solution — §4.1 #2
-- [ ] Corriger les alt texts (mockup, journal d'actions) — §4.1 #3
-- [ ] Implémenter `Organization` + `SoftwareApplication` + `FAQPage` en JSON-LD — §3.6
-- [ ] Enrichir chaque section d'un à deux paragraphes portant le vocabulaire métier — §4.2
+- [x] Réécrire le chapô sous le H1 pour y faire entrer « tiers payant » et « magasin d'optique » — §4.1 #1
+      > 2026-08-25 : `hero.lead` dans `content/site.ts` — ajout de « OKIU automatise le tiers payant de votre magasin d'optique : » en ouverture, reste du texte inchangé. H1 non touché.
+- [x] Réécrire le H2 de la section Solution — §4.1 #2
+      > 2026-08-25 : `solution.title` — « s'installe au-dessus » → « automatise le tiers payant au-dessus », le reste de la phrase (outils/mutuelles) conservé.
+- [x] Corriger les alt texts (mockup, journal d'actions) — §4.1 #3
+      > 2026-08-25 : `PhoneMockup.tsx` passait tout l'écran en `aria-hidden`, y compris le texte informatif (dossiers en attente). Remplacé par `role="img"` + `aria-label` calculé dynamiquement depuis les données (`data.title`, `data.subtitle`, items en statut `warn`) — jamais de texte en dur dans le composant. Le « journal d'actions » de `Confiance.tsx` est déjà du texte HTML réel (pas une image) : rien à corriger là.
+- [x] Implémenter `Organization` + `SoftwareApplication` + `FAQPage` en JSON-LD — §3.6
+      > 2026-08-25 : `FAQPage` existait déjà. `Organization` enrichi (`description`, `areaServed: "FR"`, et `logo` corrigé vers `/icon.svg` — la marque carrée, pas la bannière OG 1200×630 qui n'a pas vocation de logo). `sameAs` volontairement omis : dépend des profils tiers du Sprint 2 (LinkedIn, etc.), pas encore créés. `SoftwareApplication` ajouté (`applicationCategory`, `description`, `featureList` dérivé des 3 piliers déjà validés) ; `offers` volontairement omis (pas de prix public). Les 3 blocs vérifiés valides (JSON parsé + `@type` corrects) sur le build statique.
+- [x] Enrichir chaque section d'un à deux paragraphes portant le vocabulaire métier — §4.2
+      > 2026-08-25 : audit préalable contre la table §4.2 — Pour qui et Parcours couvraient déjà l'essentiel du vocabulaire (Polylogic, opticien indépendant, prise en charge, accusé reçu, rejet, dossier incomplet). Ajouté, après validation de Thomas : 2e paragraphe dans `probleme.paragraphs` (temps administratif, relance, pièce manquante, télétransmission, fin de journée), chapô `solution.lead` (plateformes mutuelles, prise en charge), reformulation de l'étape 3 du parcours (motif de rejet, statut du remboursement, jusque-là absents littéralement). `OCAM` volontairement écarté : le doc lui-même dit que ce sigle doit s'employer naturellement ou pas du tout (§2.4), il ne rentrait nulle part sans sonner artificiel. CSS ajouté (`.solution-head p.lead`) pour que le nouveau chapô suive le même style que les autres leads du site.
 - [ ] Ajouter 2-3 questions FAQ issues des magasins pilotes — §4.2
+      > 2026-08-25 : reporté à la demande de Thomas — pas encore de vraies questions posées par des magasins pilotes. Volontairement **non inventé**, conformément au garde-fou du CLAUDE.md (§7, « ne jamais inventer de contenu factuel »). À reprendre dès que Thomas a des questions réelles (Ver'Optic ou autre prospect) ; jusque-là, la FAQ existante (6 questions déjà validées, cf. Phase 1 du CLAUDE.md) reste en l'état.
+
+**Hors plan initial, ajouté le 2026-08-25 :** audit du vocabulaire cible (§2) contre le contenu réel du site. Manque identifié : le mot « gestion » était absent de tout le texte lié au tiers payant, alors qu'il porte la requête la plus prioritaire de la table BOFU (§2.1, H) : « logiciel gestion tiers payant opticien ». Glissé dans `site.seo.home.description` (« automatise **la gestion du** tiers payant » — 154 caractères, reste dans la fourchette 140-160) et dans `hero.lead`, qui réutilisent tous deux la même chaîne. Se propage automatiquement à la meta description, Open Graph, Twitter card et aux descriptions JSON-LD (`Organization`, `SoftwareApplication`), qui pointent toutes vers `site.seo.home.description`. Le `<title>` volontairement **non modifié** : déjà à 61 caractères (limite du budget §3.5) et couvre une autre requête H (« automatiser tiers payant optique ») — y ajouter « gestion » forçait à 72 caractères ou à sacrifier « magasin d'optique ».
+Point ouvert, non tranché : §2.2 liste « IA pour magasin optique » en priorité **H**, plus deux variantes en M — alors que le mot « IA » est à zéro occurrence sur le site (cohérent avec le ton anti-jargon du §2.5, mais en tension avec le test du §0.4). Décision à prendre par Thomas.
 
 ### Sprint 2 — Entité et hors-site · ~0,5 jour, effet durable
 
@@ -620,5 +629,6 @@ Séquence par rapport impact/effort. **Ne pas produire de contenu neuf avant la 
 | Août 2026 | **Rétrograder `FAQPage`** de levier à hygiène | Rich results retirés le 7 mai 2026 (§0.3) |
 | Août 2026 | **Réintégrer les requêtes de marque qualifiées** | Les plus convertissantes, sans concurrence, écartées à tort (§0.1) |
 | Août 2026 | **Retirer « copilote » et « logiciel pour opticien » des cibles** | Terrain désert d'un côté, conflit de positionnement de l'autre (§2.5) |
+| 2026-08-25 | **Mettre en attente les requêtes « IA » de la table §2.2** (« IA pour magasin optique » H, « assistant IA opticien » M, « automatisation IA tiers payant » M) — ni ciblées, ni retirées de la table | Le mot « IA » est à zéro occurrence sur le site (cohérent avec le ton anti-jargon du §2.5) mais ces trois requêtes restent en tension avec le test du §0.4. Décision explicitement reportée par Thomas — à retrancher pour de bon ou à ajouter au site le jour où le sujet revient |
 
 *Mis à jour en août 2026. L'écosystème des moteurs de réponse évolue vite : revérifier §0.3, §3.7 et §7.1 avant toute décision structurante prise plus de six mois après cette date.*

@@ -61,7 +61,24 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: BRAND,
   url: SITE_URL,
-  logo: `${SITE_URL}/og-image.png`,
+  // Marque carrée (cercle + point), pas la bannière Open Graph 1200×630 : un logo
+  // d'entité doit être identifiable en vignette, pas un visuel promotionnel.
+  logo: `${SITE_URL}/icon.svg`,
+  description: site.seo.home.description,
+  areaServed: "FR",
+  // sameAs à ajouter une fois les profils tiers créés (LinkedIn, etc. — Sprint 2
+  // de CLAUDE-seo.md §6.1) : c'est ce qui désambiguïse OKIU d'Okinawa International
+  // University aux yeux des systèmes d'entités.
+};
+
+const softwareApplicationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: BRAND,
+  applicationCategory: "BusinessApplication",
+  description: site.seo.home.description,
+  featureList: site.solution.piliers.map((pilier) => `${pilier.title} — ${pilier.text}`),
+  // offers volontairement omis : pas de prix public en phase pilote (CLAUDE-seo.md §3.6).
 };
 
 export default function RootLayout({
@@ -75,6 +92,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationJsonLd) }}
         />
         <a href="#contenu" className="skip-link">
           Aller au contenu

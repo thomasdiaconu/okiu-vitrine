@@ -1,9 +1,14 @@
 import type { PhoneData } from "@/content/site";
 
 export default function PhoneMockup({ data }: { data: PhoneData }) {
+  const pending = data.items.filter((item) => item.status === "warn").map((item) => item.title);
+  const summary = pending.length
+    ? `${data.title} : ${data.subtitle} — ${pending.join(", ")}.`
+    : `${data.title} : ${data.subtitle}.`;
+
   return (
-    <div className="phone-stage" aria-hidden="true">
-      <div className="phone">
+    <div className="phone-stage" role="img" aria-label={summary}>
+      <div className="phone" aria-hidden="true">
         <div className="phone-screen">
           <div className="phone-notch">
             <div className="pill" />

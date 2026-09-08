@@ -172,3 +172,7 @@ Ordre : d'abord les sections existantes dans la maquette (portage), puis les nou
 - [ ] Domaine + HTTPS.
 - [ ] Test formulaire de bout en bout en production.
 - [ ] Google Search Console + Bing Webmaster Tools : propriété vérifiée, sitemap soumis.
+
+## Phase 9 — Refonte style Apple (2026-09-08)
+
+Chantier purement visuel, sur la branche `refonte-apple`, non mergée sur `main` : surfaces au lieu de traits, police Geist, hero centré, header logo seul, grand chiffre pour le problème — sans changer la structure des sections, les textes validés, ni le formulaire. Plan détaillé et journal des vérifications : `PLAN.md` (racine du dépôt).

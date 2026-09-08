@@ -6,7 +6,7 @@ export default function Probleme() {
 
   return (
     <Reveal>
-      <section id="probleme" className="section-line page-section">
+      <section id="probleme" className="s-white page-section">
         <div className="wrap problem-grid">
           <div>
             <div className="eyebrow">{probleme.eyebrow}</div>
@@ -14,19 +14,21 @@ export default function Probleme() {
             {probleme.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
-            <div className="stat-highlight">
-              <div className="stat-highlight-figure">
-                {probleme.stat.figure} <span>{probleme.stat.detail}</span>
-              </div>
-              <p className="stat-highlight-text">{probleme.stat.text}</p>
-            </div>
           </div>
-          <div className="chip-cloud">
-            {probleme.chips.map((chip) => (
-              <span key={chip.label} className={chip.hot ? "chip hot" : "chip"}>
-                {chip.label}
-              </span>
-            ))}
+          <div className="problem-side">
+            <div className="bigstat">
+              <div className="fig">
+                {probleme.stat.value}
+                <small>{probleme.stat.unit}</small>
+              </div>
+              <div className="sub">{probleme.stat.detail}</div>
+              <p className="txt">{probleme.stat.text}</p>
+            </div>
+            <ul className="tasklist">
+              {probleme.taches.map((tache) => (
+                <li key={tache}>{tache}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

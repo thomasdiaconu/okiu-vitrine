@@ -4,11 +4,14 @@
   --ink: #12181b; /* texte principal */
   --ink-soft: #52616b; /* texte secondaire */
   --ink-faint: #8a9aa0; /* contraste limite : réservé aux éléments décoratifs, jamais au texte porteur de sens */
+  --ink-body: #2a353b; /* corps de texte (ratio ≥ 10:1 sur --bg et --surface) */
   --teal: #1f6f63; /* accent principal */
   --teal-deep: #16544b;
   --amber: #c97a3d; /* accent secondaire (parcimonie) */
   --line: #e0e5e4; /* bordures */
-  --radius: 20px;
+  --radius: 26px;
   --maxw: 1120px;
-  --header-h: 76px;
+  --header-h: 56px;
+  --font-sans: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --shadow-card: 0 1px 2px rgba(18, 24, 27, 0.04), 0 30px 60px -44px rgba(18, 24, 27, 0.25);
 }

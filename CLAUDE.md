@@ -22,7 +22,8 @@ Objectif du site : crédibiliser OKIU auprès d'un opticien qui le découvre en 
 - **Next.js 16, App Router, export 100 % statique** (`output: 'export'`). Aucun backend, aucune API route, aucun serveur.
 - **Formulaire** : service externe (Web3Forms ou Formspree — clé dans `NEXT_PUBLIC_FORM_ENDPOINT`), avec honeypot anti-spam et fallback `mailto:`.
 - **CSS custom avec les tokens de la maquette**. Pas de Tailwind, pas de librairie de composants, pas de CSS-in-JS.
-- **Polices auto-hébergées** via `next/font/google` (Fraunces + Inter). Aucune requête runtime vers Google Fonts.
+- **Police unique : Geist** (`next/font/google`, variable, auto-hébergée). Fraunces et Inter retirées le 2026-09-08 (refonte style Apple). Aucune requête runtime vers Google Fonts.
+- Header : logo seul, nom de marque en `.visually-hidden` ; le nom reste visible dans le footer, le hero (lead) et l'image OG.
 - **Analytics sans cookies** (Plausible ou Vercel Analytics). Pas de bannière de consentement.
 - **Langue : français uniquement.** Tout le contenu, les commentaires utiles et les messages d'erreur visibles sont en français.
 - **Marque : OKIU** (typographie standard, sans caractère spécial). Règles :
@@ -31,6 +32,8 @@ Objectif du site : crédibiliser OKIU auprès d'un opticien qui le découvre en 
 - Déploiement : Vercel (ou équivalent statique). Jamais sur l'infrastructure Ver'Optic.
 
 ## 3. Design system (source : maquette `charly-site-vitrine.html`)
+
+> **Refonte style Apple (2026-09-08)** : la maquette `docs/maquette/charly-site-vitrine.html` reste la référence pour la structure et les couleurs, mais **plus pour la typographie, le header, le hero, ni les bordures**. Référence visuelle de ces points : `docs/refonte-apple/comparateur.html` (colonne Après, réglages Geist / logo seul / compacte / centré / grand chiffre).
 
 La maquette de référence est la source de vérité visuelle. La porter fidèlement, ne pas la « réinterpréter ».
 
@@ -41,29 +44,35 @@ La maquette de référence est la source de vérité visuelle. La porter fidèle
   --bg: #F4F6F6;        /* fond général */
   --surface: #FFFFFF;   /* cartes, panneaux */
   --ink: #12181B;       /* texte principal */
-  --ink-soft: #52616B;  /* texte secondaire */
+  --ink-soft: #52616B;  /* texte secondaire, légendes, méta */
   --ink-faint: #8A9AA0; /* ⚠ contraste limite : réservé aux éléments décoratifs, jamais au texte porteur de sens */
+  --ink-body: #2A353B;  /* corps de texte (paragraphes de lecture), ratio ≥ 10:1 */
   --teal: #1F6F63;      /* accent principal */
   --teal-deep: #16544B;
   --amber: #C97A3D;     /* accent secondaire (parcimonie) */
   --line: #E0E5E4;      /* bordures */
-  --radius: 20px;
+  --radius: 26px;
   --maxw: 1120px;
+  --header-h: 56px;
+  --font-sans: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --shadow-card: 0 1px 2px rgba(18, 24, 27, 0.04), 0 30px 60px -44px rgba(18, 24, 27, 0.25);
 }
 ```
 
 ### Typographie
 
-- Titres (`h1`–`h3`) : **Fraunces**, weight ~560, `letter-spacing: -0.01em`, axe optique `opsz` activé.
-- Corps : **Inter**, 16px, `line-height: 1.55`.
-- H1 hero : `clamp(34px, 5vw, 54px)`.
+- Police unique : **Geist** (`next/font/google`, variable, auto-hébergée), sur `--font-sans`.
+- Titres (`h1`–`h3`) : weight 600, `letter-spacing: -0.028em`.
+- Corps : 17px, `line-height: 1.5`.
+- H1 hero : `clamp(36px, 5.4vw, 64px)`.
 
 ### Principes visuels
 
 - Beaucoup d'air : sections en `padding: 120px 0` (84px < 720px).
 - Boutons pilule (`border-radius: 999px`) : `.btn-primary` fond `--ink`, `.btn-ghost` bordure `--line`.
-- Eyebrow : uppercase 13px, `letter-spacing .08em`, point teal.
-- Header fixe translucide avec `backdrop-filter: blur(10px)`.
+- Eyebrow : 13px, sans point ni capitales (`text-transform: none`), `color: var(--ink-soft)`.
+- Header fixe translucide avec `backdrop-filter: saturate(180%) blur(20px)`, sans trait.
+- Surfaces au lieu de traits : pas de bordure sur cartes, FAQ, journal, callout ; alternance de fond blanc (`.s-white`) / `--bg` entre sections ; ombre `--shadow-card` unique pour les tuiles en relief.
 - Animations `reveal` au scroll via IntersectionObserver — **toujours** derrière `@media (prefers-reduced-motion: no-preference)`.
 - Sobriété : pas de gradients criards, pas d'ombres lourdes, pas d'emoji dans l'UI.
 
@@ -83,13 +92,13 @@ Comportements par section :
 
 | Élément | Mobile (< 720px) | Tablette (≥ 720px) | Desktop (≥ 960px) |
 |---|---|---|---|
-| Header | logo + lien FAQ + CTA compact (le CTA est la raison d'être du site : ne pas le masquer, version courte « Devenir pilote » si nécessaire) | nav ancres complète + CTA | idem |
+| Header | 56 px, logo seul + lien FAQ + CTA compact (le CTA est la raison d'être du site : ne pas le masquer, version courte « Devenir pilote » si nécessaire) | nav ancres complète + CTA | idem |
 | Sections | `padding: 84px 0` | `120px 0` | idem |
-| Hero | 1 colonne, **texte d'abord, téléphone ensuite** ; CTA pleine largeur empilés | idem, téléphone recentré | 2 colonnes 1.1fr/0.9fr |
+| Hero | 1 colonne centrée, texte puis téléphone ; CTA pleine largeur empilés | idem, CTA sur une ligne | 1 colonne centrée à toutes les largeurs, téléphone 280 px < 720 px, 320 px ensuite |
 | PhoneMockup | largeur réduite ~260px, jamais coupé horizontalement | 292px | 292px |
-| Problème | 1 colonne (texte puis chips) | idem | 2 colonnes |
+| Problème | 1 colonne (texte puis grand chiffre + tâches) | idem | 2 colonnes |
 | Solution (3 piliers) | cartes empilées | idem | 3 colonnes |
-| Parcours (5 temps) | liste verticale numérotée | idem | selon maquette |
+| Parcours (5 temps) | liste seule, numérotée | idem | liste + téléphone collant (`position: sticky`) ≥ 960 px |
 | Confiance | 1 colonne | idem | 2 colonnes |
 | FAQ | `<details>` pleine largeur — déjà naturellement responsive | largeur lecture ~720px centrée | idem |
 | Formulaire CTA | champs pleine largeur empilés, `padding: 52px 26px`, `margin: 0 16px` | selon maquette | idem |
@@ -113,6 +122,9 @@ okiu-vitrine/
 │   ├── maquette/
 │   │   ├── charly-site-vitrine.html   # source de vérité visuelle, FIGÉE (ne jamais la modifier ni la renommer)
 │   │   └── NOTE.md                    # « La maquette prédate les renommages CHΛRLY puis OKIU ; CLAUDE.md prime sur la marque actuelle »
+│   ├── refonte-apple/
+│   │   ├── comparateur.html           # référence visuelle avant/après de la refonte style Apple (2026-09-08)
+│   │   └── og-image.html              # source HTML de public/og-image.png (capture Playwright 1200×630)
 │   ├── plan.md                        # plan du site, implémentation, stack, SEO
 │   └── textes.md                      # textes validés des sections nouvelles (Pour qui, FAQ, formulaire)
 ├── app/
@@ -135,6 +147,9 @@ okiu-vitrine/
 │   ├── Cta.tsx                  # formulaire « Devenir magasin pilote »
 │   ├── Footer.tsx
 │   ├── PhoneMockup.tsx          # écran smartphone illustratif (SVG/CSS, pas d'image bitmap)
+│   ├── ChevronIcon.tsx          # chevron du lien texte du hero (16×16)
+│   ├── PilierIcon.tsx           # icônes des 3 piliers de Solution (oeil / coche / cloche)
+│   ├── Glasses.tsx              # illustration SVG tracée de « Pour qui »
 │   └── Reveal.tsx               # wrapper IntersectionObserver (client component)
 ├── content/
 │   └── site.ts                  # TOUS les textes du site (un seul fichier, typé)
@@ -269,6 +284,21 @@ Ordre : d'abord les sections existantes dans la maquette (portage), puis les nou
 - [ ] Domaine + HTTPS.
 - [ ] Test formulaire de bout en bout en production.
 - [ ] Google Search Console + Bing Webmaster Tools : propriété vérifiée, sitemap soumis.
+
+### Phase 9 — Refonte style Apple (2026-09-08)
+
+Chantier purement visuel (branche `refonte-apple`) : surfaces au lieu de traits, typographie sans-serif serrée (Geist), hero centré sur le produit, beaucoup d'air — sans changer la structure des sections, les textes validés, ni le fonctionnement du formulaire. Réglages retenus (`docs/refonte-apple/comparateur.html`, colonne Après) : Geist, header logo seul, échelle compacte, hero centré, grand chiffre.
+
+- [x] Police Geist (`next/font/google`, variable) remplace Fraunces + Inter ; nouveaux tokens `--ink-body`, `--radius: 26px`, `--header-h: 56px`, `--font-sans`, `--shadow-card`.
+- [x] Header : fond translucide sans trait, logo seul (nom en `.visually-hidden`), nav-cta compact.
+- [x] Suppression de `.section-line` et de toutes les bordures décoratives (cartes, FAQ, journal, callout) au profit de `.s-white` (alternance de fond) et de `--shadow-card`.
+- [x] `content/site.ts` : `probleme.stat` restructuré (`value`/`unit`), `probleme.chips` → `probleme.taches`, `solution.piliers[].icon`, `hero.phone` déplacé vers `site.phone`. Aucun texte modifié.
+- [x] Sections portées section par section (Hero centré, Problème en grand chiffre, Solution avec icônes `PilierIcon`, Parcours avec téléphone collant ≥ 960 px, Pour qui avec illustration `Glasses` tracée au scroll, FAQ avec chevron SVG).
+- [x] `public/og-image.png` régénéré en Geist (source : `docs/refonte-apple/og-image.html`).
+- [x] Vérifications de sortie : `npm run lint`/`npx tsc --noEmit`/`npm run build` verts ; aucune requête `fonts.gstatic`/`fonts.googleapis` dans `out/` ; aucun défilement horizontal à 360/390/720/960/1120 px (un débordement du halo du téléphone collant du parcours à 960 px corrigé par `overflow: clip` sur `.journey-grid`) ; contrastes AA vérifiés (`--ink-body` ≥ 10:1, `--ink-soft` ≥ 5.9:1, `--teal-deep` sur callout ≥ 7:1, eyebrow blanc 60 % sur `--ink` ≥ 4.5:1) ; `prefers-reduced-motion: reduce` vérifié par émulation (pas d'animation du H1, téléphone droit, lunettes tracées d'emblée) ; Lighthouse mobile sur `npx serve out` → Performance 98, Accessibilité 100, Bonnes pratiques 96, SEO 100 ; JSON-LD (`Organization`, `SoftwareApplication`, `FAQPage`) valides dans `out/index.html`.
+- [ ] Vérification sur un vrai smartphone (non réalisable dans cet environnement — à faire par un humain avant la Phase 8).
+
+**Sortie :** branche `refonte-apple` prête pour revue visuelle du dirigeant, non mergée sur `main`.
 
 ## 7. Garde-fous
 

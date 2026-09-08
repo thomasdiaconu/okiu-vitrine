@@ -4,7 +4,7 @@ import Reveal from "./Reveal";
 export default function Pilote() {
   return (
     <Reveal>
-      <section id="pilote" className="pilot section-line page-section">
+      <section id="pilote" className="pilot s-white page-section">
         <div className="wrap">
           <blockquote>
             {site.pilote.quote}

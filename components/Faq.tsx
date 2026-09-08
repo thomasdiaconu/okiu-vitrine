@@ -19,7 +19,7 @@ export default function Faq() {
 
   return (
     <Reveal>
-      <section id="faq" className="page-section">
+      <section id="faq" className="s-white page-section">
         <div className="wrap faq-body">
           <script
             type="application/ld+json"
@@ -30,7 +30,12 @@ export default function Faq() {
           <div className="faq-list">
             {faq.items.map((item) => (
               <details key={item.question} className="faq-item">
-                <summary>{item.question}</summary>
+                <summary>
+                  {item.question}
+                  <svg className="faq-chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M6 9l6 6 6-6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </summary>
                 <p>{item.answer}</p>
               </details>
             ))}

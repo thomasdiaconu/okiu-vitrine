@@ -10,7 +10,6 @@ export const SITE_URL = "https://okiu.fr";
 export type NavLink = { label: string; href: string; mobileVisible?: boolean };
 export type CtaLink = { label: string; href: string };
 export type LegalLink = { label: string; href: string };
-export type ChipItem = { label: string; hot: boolean };
 export type PhoneItem = { status: "ok" | "warn"; title: string; subtitle: string };
 export type PhoneData = {
   title: string;
@@ -19,8 +18,8 @@ export type PhoneData = {
   tabs: string[];
   activeTab: string;
 };
-export type Stat = { figure: string; detail: string; text: string };
-export type Pilier = { num: string; title: string; text: string };
+export type Stat = { value: string; unit: string; detail: string; text: string };
+export type Pilier = { num: string; title: string; text: string; icon: "eye" | "check" | "bell" };
 export type Etape = { num: number; title: string; text: string };
 export type JournalRow = { label: string; time: string };
 export type FaqItem = { question: string; answer: string };
@@ -63,35 +62,36 @@ export const site = {
     ctaSecondary: { label: "Voir comment ça marche", href: "#parcours" } satisfies CtaLink,
     note: "Aucun logiciel à apprendre. Aucun changement d'habitude. Vous travaillez exactement comme aujourd'hui.",
     phoneCaption: `Le copilote qui prépare cet écran a un nom : ${COPILOT_NAME}.`,
-    phone: {
-      title: "Aujourd'hui",
-      subtitle: "2 décisions en attente",
-      items: [
-        {
-          status: "warn",
-          title: "Pièce manquante — Dossier Martin",
-          subtitle: "Ordonnance à confirmer avant envoi",
-        },
-        {
-          status: "warn",
-          title: "Rejet à traiter — Dossier #474",
-          subtitle: "Motif : date de naissance incohérente",
-        },
-        {
-          status: "ok",
-          title: "Demande envoyée — Dossier #482",
-          subtitle: "Traité automatiquement, 08:41",
-        },
-        {
-          status: "ok",
-          title: "Accusé reçu — Dossier #479",
-          subtitle: "Traité automatiquement, 08:22",
-        },
-      ] satisfies PhoneItem[],
-      tabs: ["Décisions", "Journal"],
-      activeTab: "Décisions",
-    } satisfies PhoneData,
   },
+
+  phone: {
+    title: "Aujourd'hui",
+    subtitle: "2 décisions en attente",
+    items: [
+      {
+        status: "warn",
+        title: "Pièce manquante — Dossier Martin",
+        subtitle: "Ordonnance à confirmer avant envoi",
+      },
+      {
+        status: "warn",
+        title: "Rejet à traiter — Dossier #474",
+        subtitle: "Motif : date de naissance incohérente",
+      },
+      {
+        status: "ok",
+        title: "Demande envoyée — Dossier #482",
+        subtitle: "Traité automatiquement, 08:41",
+      },
+      {
+        status: "ok",
+        title: "Accusé reçu — Dossier #479",
+        subtitle: "Traité automatiquement, 08:22",
+      },
+    ] satisfies PhoneItem[],
+    tabs: ["Décisions", "Journal"],
+    activeTab: "Décisions",
+  } satisfies PhoneData,
 
   probleme: {
     eyebrow: "Le problème",
@@ -101,18 +101,19 @@ export const site = {
       "Ce temps ne s'additionne jamais en une seule tâche : une relance ici, une pièce manquante à réclamer là, un dossier repris depuis le début parce que la télétransmission n'est pas passée. Et chaque minute qu'il prend est une minute volée au client suivant — à l'accueil, au conseil, à une seconde paire proposée au bon moment.",
     ],
     stat: {
-      figure: "45 minutes",
+      value: "45",
+      unit: "min",
       detail: "pour 70 € de remboursement",
       text: "C'est ce que nous racontent des opticiens : le temps passé à sécuriser une seule prise en charge peut dépasser largement ce qu'elle rapporte — et ce temps-là n'est jamais passé avec un client.",
     } satisfies Stat,
-    chips: [
-      { label: "Contrôle des ordonnances", hot: true },
-      { label: "Vérification des prises en charge", hot: true },
-      { label: "Rapprochement des documents", hot: false },
-      { label: "Suivi des remboursements", hot: true },
-      { label: "Traitement des rejets", hot: false },
-      { label: "Relances administratives", hot: false },
-    ] satisfies ChipItem[],
+    taches: [
+      "Contrôle des ordonnances",
+      "Vérification des prises en charge",
+      "Rapprochement des documents",
+      "Suivi des remboursements",
+      "Traitement des rejets",
+      "Relances administratives",
+    ],
   },
 
   solution: {
@@ -124,16 +125,19 @@ export const site = {
         num: "01",
         title: "Il observe",
         text: `${BRAND} regarde votre logiciel habituel et vos e-mails, sans rien changer à vos habitudes de travail ni à vos outils.`,
+        icon: "eye",
       },
       {
         num: "02",
         title: "Il vérifie et agit",
         text: `Quand une tâche est fiable et bien maîtrisée, ${BRAND} l'exécute lui-même : recherche du dossier, envoi de la demande, suivi de la réponse.`,
+        icon: "check",
       },
       {
         num: "03",
         title: "Il vous alerte si besoin",
         text: `Erreur, ambiguïté, dossier incomplet : ${BRAND} s'arrête et vous prévient. Jamais d'action à l'aveugle.`,
+        icon: "bell",
       },
     ] satisfies Pilier[],
   },

@@ -11,7 +11,7 @@ export default function Header() {
             <span className="a" />
             <span className="b" />
           </span>
-          {site.brand}
+          <span className="visually-hidden">{site.brand}</span>
         </Link>
         <div className="nav-links">
           {site.nav.links.map((link) => (

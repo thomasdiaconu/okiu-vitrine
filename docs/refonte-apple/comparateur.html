@@ -1,0 +1,683 @@
+<meta charset="utf-8">
+<title>OKIU avant / après</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,500;9..144,560&family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&display=swap">
+<style>
+/* ===================== Chrome de la page (le comparateur) ===================== */
+:root{
+  --c-bg:#e6eaea; --c-panel:#ffffff; --c-ink:#12181b; --c-soft:#52616b; --c-line:#d3dada;
+  --c-accent:#1f6f63; --c-accent-ink:#ffffff; --c-toolbar:rgba(18,24,27,.92); --c-toolbar-ink:#f4f6f6; --c-toolbar-soft:#9fb0b4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --c-bg:#0f1416; --c-panel:#171d20; --c-ink:#eef2f2; --c-soft:#9fb0b4; --c-line:#263034;
+    --c-toolbar:rgba(23,29,32,.94); --c-toolbar-ink:#eef2f2; --c-toolbar-soft:#8fa0a5;
+  }
+}
+:root[data-theme="dark"]{
+  --c-bg:#0f1416; --c-panel:#171d20; --c-ink:#eef2f2; --c-soft:#9fb0b4; --c-line:#263034;
+  --c-toolbar:rgba(23,29,32,.94); --c-toolbar-ink:#eef2f2; --c-toolbar-soft:#8fa0a5;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--c-bg);color:var(--c-ink);font-family:Inter,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:110px}
+.intro{max-width:1480px;margin:0 auto;padding:36px 24px 20px;display:grid;grid-template-columns:1fr;gap:12px}
+.intro h1{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:30px;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.intro p{margin:0;max-width:72ch;color:var(--c-soft)}
+.intro .kbd{font:600 12px/1 Inter,sans-serif;color:var(--c-ink);border:1px solid var(--c-line);border-radius:6px;padding:3px 6px;white-space:nowrap}
+.stage{max-width:1480px;margin:0 auto;padding:0 24px}
+.frames{display:grid;gap:20px;align-items:start}
+.frames[data-mode="side"]{grid-template-columns:1fr 1fr}
+.frames[data-mode="mobile"]{grid-template-columns:repeat(2,390px);justify-content:center}
+.frames[data-mode="full"]{grid-template-columns:1fr}
+.frame{min-width:0}
+.frame-label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--c-soft)}
+.frame-label b{color:var(--c-ink)}
+.frame-label .pill{font-weight:500;letter-spacing:0;text-transform:none;font-size:12px;color:var(--c-soft)}
+.mock-outer{border:1px solid var(--c-line);border-radius:14px;overflow:clip;background:#f4f6f6;box-shadow:0 30px 60px -40px rgba(0,0,0,.4)}
+.frames[data-mode="side"] .mock{width:1200px}
+.frames[data-mode="mobile"] .mock{width:390px}
+.frames[data-mode="full"] .mock{width:100%}
+.frames[data-mode="full"] .frame[data-hidden="1"]{display:none}
+@media (max-width:900px){
+  .frames[data-mode="side"]{grid-template-columns:1fr}
+  .frames[data-mode="mobile"]{grid-template-columns:repeat(auto-fit,390px)}
+}
+/* barre d'outils flottante */
+.toolbar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:100;background:var(--c-toolbar);color:var(--c-toolbar-ink);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);border-radius:18px;padding:10px 14px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;max-width:calc(100vw - 24px);box-shadow:0 20px 50px -20px rgba(0,0,0,.6)}
+.tgroup{display:flex;align-items:center;gap:8px}
+.tgroup > span{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--c-toolbar-soft)}
+.seg{display:inline-flex;background:rgba(255,255,255,.08);border-radius:999px;padding:3px}
+.seg button{appearance:none;border:0;background:transparent;color:var(--c-toolbar-ink);font:500 13px/1 Inter,sans-serif;padding:8px 12px;border-radius:999px;cursor:pointer;min-height:32px}
+.seg button[aria-pressed="true"]{background:#f4f6f6;color:#12181b;font-weight:600}
+.seg button:focus-visible{outline:2px solid #7ec9bb;outline-offset:2px}
+.tgroup[data-only-apres]{transition:opacity .2s}
+.tgroup[data-only-apres][data-off="1"]{opacity:.35}
+/* notes */
+.notes{max-width:1480px;margin:40px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.note{background:var(--c-panel);border:1px solid var(--c-line);border-radius:14px;padding:18px 20px}
+.note h3{margin:0 0 6px;font-size:15px;font-weight:600}
+.note p{margin:0;color:var(--c-soft);font-size:14px}
+.note .where{display:block;margin-top:8px;font-size:12px;color:var(--c-accent);font-weight:600}
+.notes-title{max-width:1480px;margin:44px auto 0;padding:0 24px;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:22px;letter-spacing:-.01em}
+
+/* ===================== Maquettes : base = CSS actuel du site (scopé, media → container) ===================== */
+.mock{
+  --bg:#f4f6f6;--surface:#fff;--ink:#12181b;--ink-soft:#52616b;--ink-faint:#8a9aa0;--teal:#1f6f63;--teal-deep:#16544b;--amber:#c97a3d;--line:#e0e5e4;--radius:20px;--maxw:1120px;--header-h:76px;
+  --font-fraunces:Fraunces,Georgia,serif;--font-inter:Inter,-apple-system,sans-serif;--font-display:var(--font-fraunces);
+  container-type:inline-size;container-name:mock;
+  background:var(--bg);color:var(--ink);font-family:var(--font-inter);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+.mock h1,.mock h2,.mock h3{font-family:var(--font-display);font-weight:560;letter-spacing:-.01em;margin:0;color:var(--ink);font-variation-settings:"opsz" 144}
+.mock a{color:inherit}
+.mock img,.mock svg{max-width:100%;height:auto;display:block}
+.mock .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+.mock .btn-primary{background:var(--ink);color:#fff}
+.mock .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(18,24,27,.18)}
+.mock .btn-arrow{flex:none;width:14px;height:14px}
+.mock .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.mock .btn-ghost:hover{border-color:var(--ink)}
+.mock .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+@container mock (min-width:720px){.mock .wrap{padding:0 32px}}
+.mock .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:18px}
+.mock .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal);flex:none}
+.mock header{position:sticky;top:0;z-index:50;background:rgba(244,246,246,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.mock .nav-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;height:var(--header-h)}
+.mock .logo{display:flex;align-items:center;gap:10px;font-family:var(--font-fraunces);font-weight:560;font-size:18px;text-decoration:none;flex:none}
+.mock .logo-mark{width:26px;height:26px;position:relative;flex:none}
+.mock .logo-mark span{position:absolute;border-radius:50%}
+.mock .logo-mark .a{width:26px;height:26px;border:1.6px solid var(--teal);top:0;left:0}
+.mock .logo-mark .b{width:11px;height:11px;background:var(--amber);top:8px;left:8px}
+.mock .nav-links{display:flex;align-items:center;gap:16px;flex:1;min-width:0}
+.mock .nav-link{display:none;align-items:center;min-height:44px;font-size:14px;font-weight:500;text-decoration:none;color:var(--ink-soft)}
+.mock .nav-link-mobile{display:flex}
+@container mock (min-width:720px){.mock .nav-links{gap:24px}.mock .nav-link{display:flex}}
+.mock .nav-cta{flex:none;min-height:44px;padding:10px 18px;font-size:14px}
+.mock .page-section{padding:84px 0}
+@container mock (min-width:720px){.mock .page-section{padding:120px 0}}
+.mock .hero{padding-top:40px}
+.mock .section-line{border-top:1px solid var(--line)}
+.mock footer{padding:56px 0 48px}
+.mock .footer-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.mock .footer-links{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.mock .footer-links a{display:flex;align-items:center;min-height:44px;font-size:13px;color:var(--ink-soft);text-decoration:none}
+.mock footer .tag{font-size:13px;color:var(--ink-soft)}
+.mock .hero-grid{display:grid;grid-template-columns:1fr;gap:48px;align-items:center}
+@container mock (min-width:960px){.mock .hero-grid{grid-template-columns:1.1fr .9fr;gap:64px}}
+.mock .hero h1{font-size:clamp(34px,5cqw,54px);line-height:1.08}
+.mock .hero p.lead{font-size:18px;color:var(--ink-soft);max-width:460px;margin:22px 0 32px}
+.mock .hero-ctas{display:flex;flex-direction:column;align-items:stretch;gap:14px}
+.mock .hero-ctas .btn{width:100%}
+@container mock (min-width:960px){.mock .hero-ctas{flex-direction:row;align-items:center;flex-wrap:wrap}.mock .hero-ctas .btn{width:auto}}
+.mock .hero-note{margin-top:18px;font-size:13.5px;color:var(--ink-soft)}
+.mock .phone-column{display:flex;flex-direction:column;align-items:center;gap:14px}
+.mock .phone-caption{max-width:260px;font-size:13px;color:var(--ink-soft);text-align:center}
+.mock .phone-stage{display:flex;justify-content:center;position:relative}
+.mock .phone{width:260px;background:var(--ink);border-radius:42px;padding:14px;box-shadow:0 40px 80px -20px rgba(18,24,27,.35),0 0 0 1px rgba(18,24,27,.05);position:relative}
+@container mock (min-width:720px){.mock .phone{width:292px}}
+.mock .phone-screen{background:var(--surface);border-radius:30px;overflow:hidden}
+.mock .phone-notch{height:22px;display:flex;align-items:center;justify-content:center}
+.mock .phone-notch .pill{width:56px;height:6px;border-radius:4px;background:var(--ink);opacity:.85}
+.mock .phone-top{padding:4px 20px 16px}
+.mock .phone-top .ptitle{font-family:var(--font-display);font-weight:560;font-size:17px}
+.mock .phone-top .psub{font-size:12px;color:var(--ink-soft);margin-top:2px}
+.mock .phone-list{padding:0 12px 18px;display:flex;flex-direction:column;gap:8px}
+.mock .p-item{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:14px;background:#f6f7f6;border:1px solid var(--line)}
+.mock .p-item.attn{background:#fbf2e8;border-color:#f0d8bc}
+.mock .dot{width:9px;height:9px;border-radius:50%;margin-top:5px;flex:none}
+.mock .dot.ok{background:var(--teal)}.mock .dot.warn{background:var(--amber)}
+.mock .p-item .t{font-size:13px;font-weight:600}
+.mock .p-item .s{font-size:11.5px;color:var(--ink-soft);margin-top:2px}
+.mock .phone-tab{display:flex;border-top:1px solid var(--line)}
+.mock .phone-tab div{flex:1;text-align:center;font-size:10.5px;padding:12px 0;color:var(--ink-soft);font-weight:600;letter-spacing:.03em}
+.mock .phone-tab div.active{color:var(--ink);box-shadow:inset 0 2px 0 var(--teal)}
+.mock .problem-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:start}
+@container mock (min-width:960px){.mock .problem-grid{grid-template-columns:1fr 1fr;gap:64px}}
+.mock .h2{font-size:clamp(28px,3.6cqw,38px);line-height:1.15}
+.mock .problem-grid p{color:var(--ink-soft);font-size:16.5px;margin-top:18px;max-width:480px}
+.mock .chip-cloud{display:flex;flex-wrap:wrap;gap:10px}
+.mock .chip{font-size:13.5px;font-weight:500;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:10px 16px}
+.mock .chip.hot{color:var(--teal-deep);border-color:rgba(31,111,99,.28);background:rgba(31,111,99,.06);font-weight:600}
+.mock .stat-highlight{margin-top:28px;padding:20px 22px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:var(--radius);max-width:460px}
+.mock .stat-highlight-figure{font-family:var(--font-display);font-weight:560;font-size:clamp(24px,3.4cqw,30px);letter-spacing:-.01em;color:var(--ink)}
+.mock .stat-highlight-figure span{font-family:var(--font-inter);font-weight:600;font-size:14px;letter-spacing:normal;color:var(--ink-soft);margin-left:6px}
+.mock .stat-highlight-text{margin:10px 0 0;font-size:14px;color:var(--ink-soft)}
+.mock .sec-head{max-width:640px;margin-bottom:40px}
+@container mock (min-width:720px){.mock .sec-head{margin-bottom:56px}}
+.mock .sec-head p.lead{color:var(--ink-soft);font-size:16.5px;margin:18px 0 0}
+.mock .cards3{display:grid;grid-template-columns:1fr;gap:20px}
+@container mock (min-width:960px){.mock .cards3{grid-template-columns:repeat(3,1fr)}}
+.mock .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px}
+.mock .card .num{font-family:var(--font-display);font-size:14px;color:var(--ink-soft);margin-bottom:16px}
+.mock .card .ico{display:none}
+.mock .card h3{font-size:19px;margin-bottom:10px}
+.mock .card p{color:var(--ink-soft);font-size:14.5px;margin:0}
+.mock .journey{background:var(--surface)}
+.mock .journey-grid{display:block}
+.mock .journey-phone{display:none}
+.mock .timeline{position:relative;padding-left:48px}
+@container mock (min-width:720px){.mock .timeline{padding-left:56px}}
+.mock .timeline::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:1.5px;background:var(--line)}
+.mock .tl-item{position:relative;padding-bottom:40px}
+@container mock (min-width:720px){.mock .tl-item{padding-bottom:48px}}
+.mock .tl-item:last-child{padding-bottom:0}
+.mock .tl-ring{position:absolute;left:-48px;top:0;width:40px;height:40px;border-radius:50%;background:var(--bg);border:1.5px solid var(--teal);color:var(--teal-deep);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;font-family:var(--font-display)}
+@container mock (min-width:720px){.mock .tl-ring{left:-56px}}
+.mock .tl-item h3{font-size:19px;margin-bottom:8px}
+.mock .tl-item p{color:var(--ink-soft);font-size:15px;max-width:560px;margin:0}
+.mock .trust-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+@container mock (min-width:960px){.mock .trust-grid{grid-template-columns:1fr 1fr;gap:64px}}
+.mock .trust-grid p.lead{color:var(--ink-soft);font-size:16.5px;margin:18px 0 26px;max-width:480px}
+.mock .trust-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:16px}
+.mock .trust-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink)}
+.mock .check{flex:none;width:20px;height:20px;border-radius:50%;background:rgba(31,111,99,.1);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.mock .check svg{width:11px;height:11px}
+.mock .journal-card{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.mock .journal-card .jh{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px}
+.mock .journal-row{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-top:1px solid var(--line);font-size:13.5px}
+.mock .journal-row:first-of-type{border-top:none}
+.mock .journal-row .l{color:var(--ink);font-weight:500}
+.mock .journal-row .r{color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.mock .pilot{text-align:center}
+.mock .pilot blockquote{margin:0 auto;max-width:700px;font-family:var(--font-display);font-weight:440;font-size:clamp(22px,3cqw,30px);line-height:1.35;color:var(--ink);text-wrap:balance}
+.mock .pilot cite{display:block;font-style:normal;margin-top:22px;font-size:14px;color:var(--ink-soft);font-family:var(--font-inter)}
+.mock .pourqui-grid{display:block}
+.mock .pourqui-art{display:none}
+.mock .pourqui-body{max-width:720px}
+.mock .pourqui-body h2{margin-bottom:18px}
+.mock .pourqui-body p{color:var(--ink-soft);font-size:16.5px;margin:0 0 18px}
+.mock .callout{margin-top:8px;padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);font-size:14.5px;color:var(--ink-soft)}
+.mock .faq-body{max-width:100%}
+@container mock (min-width:720px){.mock .faq-body{max-width:720px;margin:0 auto}}
+.mock .faq-body h2{margin-bottom:32px}
+.mock .faq-list{display:flex;flex-direction:column;gap:12px}
+.mock .faq-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:4px 22px}
+.mock .faq-item summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;padding:16px 0;font-weight:600;font-size:15.5px}
+.mock .faq-item summary::-webkit-details-marker{display:none}
+.mock .faq-item summary .plus{flex:none;font-family:var(--font-fraunces);font-size:22px;color:var(--teal);transition:transform .2s ease;line-height:1}
+.mock .faq-item summary .chev{display:none}
+.mock .faq-item[open] summary .plus{transform:rotate(45deg)}
+.mock .faq-item p{color:var(--ink-soft);font-size:15px;padding-bottom:20px;margin:0}
+.mock .cta-final{background:var(--ink);color:#fff;border-radius:28px;padding:52px 26px;text-align:center}
+@container mock (min-width:720px){.mock .cta-final{padding:72px 48px}}
+.mock .cta-final .eyebrow{color:rgba(255,255,255,.75);justify-content:center}
+.mock .cta-final .eyebrow::before{background:var(--amber)}
+.mock .cta-final h2{color:#fff;font-size:clamp(28px,4cqw,42px);line-height:1.12}
+.mock .cta-intro{color:rgba(255,255,255,.68);font-size:16.5px;max-width:480px;margin:18px auto 34px}
+.mock .cta-form{display:flex;flex-direction:column;gap:18px;max-width:480px;margin:0 auto;text-align:left}
+.mock .field{display:flex;flex-direction:column;gap:8px}
+.mock .field label{font-size:13.5px;font-weight:600;color:rgba(255,255,255,.85)}
+.mock .field input,.mock .field select,.mock .field textarea{width:100%;min-height:44px;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font-family:var(--font-inter);font-size:16px}
+.mock .field textarea{min-height:96px;resize:vertical}
+.mock .field input::placeholder,.mock .field textarea::placeholder{color:rgba(255,255,255,.4)}
+.mock .cta-form .btn-primary{background:#fff;color:var(--ink);width:100%}
+.mock .rgpd-note{font-size:12.5px;color:rgba(255,255,255,.55);margin-top:4px}
+.mock .rgpd-note a{color:rgba(255,255,255,.85)}
+.mock .textlink{display:none}
+.mock .acuity,.mock .bigstat,.mock .tasklist{display:none}
+
+/* ===================== APRÈS : les propositions ===================== */
+.mock.apres{--ink-body:#2a353b;--header-h:56px;--radius:26px;--bg:#f5f6f6}
+.mock.apres[data-heads="inter"]{--font-display:var(--font-inter)}
+.mock.apres[data-heads="geist"]{--font-display:Geist,Inter,-apple-system,sans-serif;--font-inter:Geist,Inter,-apple-system,sans-serif}
+.mock.apres[data-heads="sf"]{--font-display:"SF Pro Display",-apple-system,BlinkMacSystemFont,system-ui,Inter,sans-serif;--font-inter:"SF Pro Text",-apple-system,BlinkMacSystemFont,system-ui,Inter,sans-serif}
+.mock.apres[data-heads="sf"] h1,.mock.apres[data-heads="sf"] h2,.mock.apres[data-heads="sf"] h3,.mock.apres[data-heads="sf"] .ptitle,.mock.apres[data-heads="sf"] .logo,.mock.apres[data-heads="sf"] .bigstat .fig,.mock.apres[data-heads="sf"] .pilot blockquote{font-weight:600;letter-spacing:-.025em;font-variation-settings:normal}
+.mock.apres[data-heads="sf"] .hero h1{letter-spacing:-.03em;font-weight:700}
+.mock.apres[data-heads="sf"] .pilot blockquote{font-weight:500}
+.mock.apres[data-heads="sf"] .bigstat .fig{letter-spacing:-.04em;font-weight:700}
+.mock.apres[data-heads="geist"] h1,.mock.apres[data-heads="geist"] h2,.mock.apres[data-heads="geist"] h3,.mock.apres[data-heads="geist"] .ptitle,.mock.apres[data-heads="geist"] .logo,.mock.apres[data-heads="geist"] .bigstat .fig,.mock.apres[data-heads="geist"] .pilot blockquote{font-weight:600;letter-spacing:-.028em;font-variation-settings:normal}
+.mock.apres[data-heads="geist"] .pilot blockquote{font-weight:500}
+.mock.apres[data-heads="geist"] .bigstat .fig{letter-spacing:-.04em}
+.mock.apres[data-heads="inter"] .logo,.mock.apres[data-heads="inter"] .bigstat .fig,.mock.apres[data-heads="inter"] .pilot blockquote{font-family:var(--font-inter);font-weight:600;letter-spacing:-.028em;font-variation-settings:normal}
+.mock.apres[data-heads="inter"] .pilot blockquote{font-weight:500}
+/* header : logo seul */
+.mock.apres[data-logo="mark"] header .logo-text{display:none}
+.mock.apres[data-logo="mark"] header .logo-mark{width:26px;height:26px}
+.mock.apres[data-logo="mark"] header .logo-mark .a{width:26px;height:26px}
+.mock.apres[data-logo="mark"] header .logo-mark .b{width:11px;height:11px;top:8px;left:8px}
+/* échelle compacte */
+.mock.apres[data-scale="compact"] .hero h1{font-size:clamp(36px,5.4cqw,64px)}
+.mock.apres[data-scale="compact"] .hero p.lead{font-size:clamp(16px,1.6cqw,19px);max-width:560px}
+.mock.apres[data-scale="compact"] .h2{font-size:clamp(30px,3.5cqw,42px)}
+.mock.apres[data-scale="compact"] .sec-head p.lead,.mock.apres[data-scale="compact"] .trust-grid p.lead,.mock.apres[data-scale="compact"] .problem-grid p,.mock.apres[data-scale="compact"] .pourqui-body p{font-size:17px}
+.mock.apres[data-scale="compact"] .card h3,.mock.apres[data-scale="compact"] .tl-item h3{font-size:20px}
+.mock.apres[data-scale="compact"] .card p,.mock.apres[data-scale="compact"] .tl-item p,.mock.apres[data-scale="compact"] .faq-item p{font-size:15px}
+.mock.apres[data-scale="compact"] .faq-item summary{font-size:16px}
+.mock.apres[data-scale="compact"] .pilot blockquote{font-size:clamp(22px,2.8cqw,32px)}
+.mock.apres[data-scale="compact"] .bigstat .fig{font-size:clamp(56px,7cqw,88px)}
+.mock.apres[data-scale="compact"] .cta-final h2{font-size:clamp(30px,4cqw,44px)}
+.mock.apres[data-heads="inter"] h1,.mock.apres[data-heads="inter"] h2,.mock.apres[data-heads="inter"] h3,.mock.apres[data-heads="inter"] .ptitle{font-weight:600;letter-spacing:-.03em}
+.mock.apres .s-white{background:var(--surface)}
+.mock.apres .section-line{border-top:0}
+/* header */
+.mock.apres header{background:rgba(245,246,246,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:0}
+.mock.apres .logo{font-size:16px;gap:8px}
+.mock.apres .logo-mark{width:22px;height:22px}.mock.apres .logo-mark .a{width:22px;height:22px}.mock.apres .logo-mark .b{width:9px;height:9px;top:6.5px;left:6.5px}
+.mock.apres .nav-link{font-size:13px;color:var(--ink-body)}
+.mock.apres .nav-cta{min-height:36px;padding:8px 14px;font-size:13px}
+/* boutons */
+.mock.apres .btn-primary:hover{transform:none;box-shadow:none;background:#2a353b}
+.mock.apres .btn-ghost{display:none}
+.mock.apres .textlink{display:inline-flex;align-items:center;gap:4px;color:var(--teal);font-weight:600;font-size:15px;text-decoration:none;min-height:44px;padding:0 6px}
+.mock.apres .textlink svg{width:14px;height:14px;transition:transform .18s}
+.mock.apres .textlink:hover svg{transform:translateX(2px)}
+/* eyebrow */
+.mock.apres .eyebrow{font-size:13px;font-weight:600;letter-spacing:.01em;text-transform:none;color:var(--ink-soft);margin-bottom:16px}
+.mock.apres .eyebrow::before{display:none}
+/* titres et corps */
+.mock.apres .h2{font-size:clamp(32px,4cqw,48px);line-height:1.06;letter-spacing:-.02em;text-wrap:balance}
+.mock.apres .problem-grid p,.mock.apres .sec-head p.lead,.mock.apres .trust-grid p.lead,.mock.apres .pourqui-body p,.mock.apres .tl-item p,.mock.apres .card p,.mock.apres .faq-item p{color:var(--ink-body)}
+.mock.apres .sec-head p.lead,.mock.apres .trust-grid p.lead,.mock.apres .problem-grid p,.mock.apres .pourqui-body p{font-size:18px;line-height:1.5}
+.mock.apres .sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+/* hero centré */
+.mock.apres .hero{padding-top:56px}
+.mock.apres .hero-grid{display:flex;flex-direction:column;align-items:center;text-align:center;gap:56px}
+.mock.apres .hero-text{display:flex;flex-direction:column;align-items:center}
+.mock.apres .hero h1{font-size:clamp(40px,6.4cqw,76px);line-height:1.02;letter-spacing:-.022em;max-width:15ch;text-wrap:balance}
+.mock.apres .hero p.lead{font-size:clamp(17px,1.8cqw,21px);color:var(--ink-body);max-width:600px;margin:26px auto 34px}
+.mock.apres .hero-ctas{flex-direction:column;align-items:center;gap:8px}
+@container mock (min-width:720px){.mock.apres .hero-ctas{flex-direction:row;gap:20px}.mock.apres .hero-ctas .btn{width:auto;padding:16px 30px;font-size:16px}}
+.mock.apres .hero-note{font-size:14px;margin-top:20px;max-width:440px}
+.mock.apres .phone-column{gap:18px}
+.mock.apres .phone-caption{font-size:13px}
+/* option 2 colonnes */
+.mock.apres[data-hero="cols"] .hero-grid{display:grid;grid-template-columns:1fr;text-align:left;gap:48px}
+@container mock (min-width:960px){.mock.apres[data-hero="cols"] .hero-grid{grid-template-columns:1.1fr .9fr;gap:64px}}
+.mock.apres[data-hero="cols"] .hero-text{align-items:flex-start}
+.mock.apres[data-hero="cols"] .hero h1{margin:0}
+.mock.apres[data-hero="cols"] .hero p.lead{margin-left:0;margin-right:0}
+.mock.apres[data-hero="cols"] .hero-ctas{align-items:flex-start}
+@container mock (min-width:960px){.mock.apres[data-hero="cols"] .hero-ctas{align-items:center}}
+/* téléphone : halo + pseudo-3D + mise au point */
+.mock.apres .phone-stage{padding:24px 0}
+.mock.apres .phone-stage::before{content:"";position:absolute;inset:-40px -120px;background:radial-gradient(ellipse at 50% 45%,rgba(31,111,99,.14),rgba(31,111,99,.05) 40%,transparent 68%);pointer-events:none}
+.mock.apres .phone{width:280px;border-radius:44px;box-shadow:0 60px 100px -30px rgba(18,24,27,.38),0 0 0 1px rgba(18,24,27,.06);transform:perspective(1400px) rotateX(7deg) rotateY(-11deg) rotateZ(1.5deg);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+@container mock (min-width:720px){.mock.apres .phone{width:320px}}
+.mock.apres .phone-stage:hover .phone{transform:perspective(1400px) rotateX(0) rotateY(0) rotateZ(0)}
+.mock.apres[data-hero="cols"] .phone{transform:perspective(1400px) rotateX(4deg) rotateY(-14deg)}
+.mock.apres .phone-screen{border-radius:32px}
+.mock.apres .p-item{border:0;background:#f2f4f4;border-radius:16px}
+.mock.apres .p-item.attn{background:#fbf1e6}
+.mock.apres .phone-tab{border-top:1px solid var(--line)}
+@keyframes focus-in{from{filter:blur(10px);opacity:.35}to{filter:blur(0);opacity:1}}
+.mock.apres .hero h1{animation:focus-in 1.1s cubic-bezier(.2,.7,.2,1) both}
+/* problème : tuile grand chiffre + liste, ou planche d'acuité */
+.mock.apres .stat-highlight,.mock.apres .chip-cloud{display:none}
+.mock.apres .problem-side{display:flex;flex-direction:column;gap:16px}
+.mock.apres .bigstat{display:block;background:var(--bg);border-radius:var(--radius);padding:40px 36px 34px}
+.mock.apres .bigstat .fig{font-family:var(--font-display);font-weight:500;font-size:clamp(64px,8cqw,104px);line-height:.95;letter-spacing:-.03em;color:var(--ink);font-variation-settings:"opsz" 144}
+.mock.apres .bigstat .fig small{font-size:.42em;letter-spacing:-.01em;margin-left:.12em}
+.mock.apres .bigstat .sub{font-size:16px;font-weight:600;color:var(--teal-deep);margin-top:14px}
+.mock.apres .bigstat .txt{font-size:14.5px;color:var(--ink-body);margin:12px 0 0;max-width:420px}
+.mock.apres .tasklist{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;list-style:none;margin:0;padding:0 8px;font-size:14.5px;color:var(--ink-body)}
+.mock.apres .tasklist li{display:flex;gap:10px;align-items:center}
+@container mock (max-width:600px){.mock.apres .tasklist{grid-template-columns:1fr}}
+.mock.apres .tasklist li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal);flex:none}
+.mock.apres[data-problem="acuity"] .bigstat{display:none}
+.mock.apres[data-problem="acuity"] .tasklist{display:none}
+.mock.apres[data-problem="acuity"] .acuity{display:block}
+.mock.apres .acuity{background:var(--bg);border-radius:var(--radius);padding:36px 32px 30px}
+.mock.apres .acuity .ah{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:22px;display:flex;justify-content:space-between}
+.mock.apres .acuity .row{display:grid;grid-template-columns:44px 1fr;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--line)}
+.mock.apres .acuity .row:first-of-type{border-top:0}
+.mock.apres .acuity .n{font-size:11px;color:var(--ink-soft);font-variant-numeric:tabular-nums;font-weight:600}
+.mock.apres .acuity .row span:last-child{font-family:var(--font-display);font-weight:500;text-transform:uppercase;color:var(--ink);line-height:1.15;font-variation-settings:"opsz" 60}
+.mock.apres .acuity .row.r1 span:last-child{font-size:26px;letter-spacing:.06em}
+.mock.apres .acuity .row.r2 span:last-child{font-size:20px;letter-spacing:.05em}
+.mock.apres .acuity .row.r3 span:last-child{font-size:18px;letter-spacing:.05em}
+.mock.apres .acuity .row.r4 span:last-child{font-size:16px;letter-spacing:.04em;color:var(--ink-body)}
+.mock.apres .acuity .row.r5 span:last-child{font-size:14.5px;letter-spacing:.04em;color:var(--ink-body)}
+.mock.apres .acuity .row.r6 span:last-child{font-size:13.5px;letter-spacing:.04em;color:var(--ink-soft)}
+.mock.apres .acuity .af{margin-top:22px;font-size:14px;color:var(--ink-body)}
+.mock.apres .acuity .af b{font-family:var(--font-display);font-weight:500;font-size:26px;letter-spacing:-.02em;color:var(--ink);margin-right:6px}
+/* solution : tuiles sans bordure, icônes */
+.mock.apres .cards3{gap:16px}
+.mock.apres .card{border:0;background:var(--surface);border-radius:var(--radius);padding:40px 34px 36px;box-shadow:0 1px 2px rgba(18,24,27,.04),0 30px 60px -44px rgba(18,24,27,.25)}
+.mock.apres .card .num{display:none}
+.mock.apres .card .ico{display:flex;width:44px;height:44px;border-radius:14px;background:rgba(31,111,99,.09);align-items:center;justify-content:center;margin-bottom:26px}
+.mock.apres .card .ico svg{width:24px;height:24px;stroke:var(--teal);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.mock.apres .card h3{font-size:23px;letter-spacing:-.015em;margin-bottom:12px}
+.mock.apres .card p{font-size:15.5px}
+/* parcours : 2 colonnes, téléphone collant */
+.mock.apres .journey-grid{display:grid;grid-template-columns:1fr;gap:56px;align-items:start}
+@container mock (min-width:960px){.mock.apres .journey-grid{grid-template-columns:1fr .85fr;gap:80px}.mock.apres .journey-phone{display:flex;position:sticky;top:calc(var(--header-h) + 48px);justify-content:center}}
+.mock.apres .journey-phone .phone{transform:perspective(1400px) rotateY(9deg) rotateX(3deg)}
+.mock.apres .journey-phone .phone-stage::before{inset:-20px -80px}
+.mock.apres .timeline::before{background:var(--line)}
+.mock.apres .tl-ring{background:var(--surface);border-color:var(--line);color:var(--ink);font-family:var(--font-inter);font-weight:600;font-size:13px}
+.mock.apres .tl-item h3{font-size:22px;letter-spacing:-.015em}
+.mock.apres .tl-item p{font-size:16px}
+/* confiance : journal en carte blanche sans bordure */
+.mock.apres .journal-card{background:var(--surface);border:0;padding:30px 32px;box-shadow:0 1px 2px rgba(18,24,27,.04),0 30px 60px -44px rgba(18,24,27,.25)}
+.mock.apres .journal-card .jh{color:var(--ink-soft);font-weight:600}
+.mock.apres .journal-row{font-size:14.5px;padding:14px 0}
+.mock.apres .trust-list li{font-size:16px}
+/* pilote */
+.mock.apres .pilot blockquote{font-size:clamp(24px,3.2cqw,36px);max-width:760px;font-weight:440;letter-spacing:-.012em;line-height:1.28}
+/* pour qui : lunettes mono-trait */
+.mock.apres .pourqui-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+@container mock (min-width:960px){.mock.apres .pourqui-grid{grid-template-columns:.8fr 1.2fr;gap:72px}}
+.mock.apres .pourqui-art{display:flex;justify-content:center}
+.mock.apres .pourqui-art svg{width:100%;max-width:360px;stroke:var(--ink);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.mock.apres .pourqui-art svg .lens{stroke:var(--teal)}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.mock.apres .pourqui-art svg path,.mock.apres .pourqui-art svg rect{stroke-dasharray:1;stroke-dashoffset:0;animation:draw 1.8s cubic-bezier(.4,0,.2,1) both}
+.mock.apres .pourqui-art svg .lens{animation-delay:.25s}
+.mock.apres .pourqui-art svg .temple{animation-delay:.9s}
+.mock.apres .callout{border:0;background:rgba(31,111,99,.08);color:var(--teal-deep);font-size:15px;padding:18px 22px;border-radius:18px}
+/* FAQ : liste à filets, chevron */
+.mock.apres .faq-body h2{text-align:center}
+.mock.apres .faq-list{gap:0;border-top:1px solid var(--line)}
+.mock.apres .faq-item{background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:4px 2px}
+.mock.apres .faq-item summary{font-size:17px;padding:20px 0}
+.mock.apres .faq-item summary .plus{display:none}
+.mock.apres .faq-item summary .chev{display:block;width:18px;height:18px;flex:none;stroke:var(--ink-soft);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.mock.apres .faq-item[open] summary .chev{transform:rotate(180deg)}
+.mock.apres .faq-item p{font-size:16px;padding-bottom:24px;max-width:62ch}
+/* CTA */
+.mock.apres .cta-final{border-radius:34px}
+.mock.apres .cta-final h2{font-size:clamp(32px,4.4cqw,48px);letter-spacing:-.02em}
+.mock.apres .cta-final .eyebrow{color:rgba(255,255,255,.6)}
+.mock.apres .field input,.mock.apres .field select,.mock.apres .field textarea{border:0;background:rgba(255,255,255,.09);border-radius:14px;padding:14px 16px}
+/* footer */
+.mock.apres footer{padding:36px 0 40px;border-top:1px solid var(--line)}
+.mock.apres .footer-links a,.mock.apres footer .tag{font-size:12.5px}
+@media (prefers-reduced-motion:reduce){
+  .mock.apres .hero h1,.mock.apres .pourqui-art svg *{animation:none!important}
+  .mock .btn,.mock.apres .phone,.mock.apres .textlink svg{transition:none!important}
+}
+</style>
+
+<div class="intro">
+  <h1>OKIU, avant / après</h1>
+  <p>À gauche, le site tel qu'il est aujourd'hui (son CSS, reproduit à l'identique). À droite, les mêmes textes avec les propositions appliquées : surfaces au lieu de traits, typographie plus ample, hero centré, téléphone en pseudo-3D, parcours avec téléphone collant, FAQ à filets, lunettes mono-trait. Survolez le téléphone pour le redresser. Les interrupteurs en bas de page règlent les choix encore ouverts.</p>
+</div>
+
+<div class="stage">
+  <div class="frames" id="frames" data-mode="side">
+    <div class="frame" id="frameAvant">
+      <p class="frame-label"><b>Avant</b><span class="pill">CSS actuel du site</span></p>
+      <div class="mock-outer"><div class="mock avant" id="mockAvant"></div></div>
+    </div>
+    <div class="frame" id="frameApres">
+      <p class="frame-label"><b>Après</b><span class="pill" id="apresPill">Choix retenus le 2026-09-08 : Geist · logo seul · compacte · hero centré · grand chiffre</span></p>
+      <div class="mock-outer"><div class="mock apres" id="mockApres" data-heads="geist" data-hero="center" data-problem="tile" data-logo="mark" data-scale="compact"></div></div>
+    </div>
+  </div>
+</div>
+
+<h2 class="notes-title">Ce qui change, section par section</h2>
+<div class="notes" id="notes"></div>
+
+<div class="toolbar" role="toolbar" aria-label="Réglages du comparateur">
+  <div class="tgroup"><span>Vue</span>
+    <div class="seg" data-key="mode">
+      <button aria-pressed="true" data-val="side">Côte à côte</button>
+      <button aria-pressed="false" data-val="mobile">Mobile 390</button>
+      <button aria-pressed="false" data-val="full">Plein écran</button>
+    </div>
+  </div>
+  <div class="tgroup" id="whichGroup" hidden><span>Afficher</span>
+    <div class="seg" data-key="which">
+      <button aria-pressed="false" data-val="avant">Avant</button>
+      <button aria-pressed="true" data-val="apres">Après</button>
+    </div>
+  </div>
+  <div class="tgroup" data-only-apres><span>Police</span>
+    <div class="seg" data-key="heads">
+      <button aria-pressed="false" data-val="fraunces">Fraunces</button>
+      <button aria-pressed="false" data-val="inter">Inter serré</button>
+      <button aria-pressed="true" data-val="geist">Geist</button>
+      <button aria-pressed="false" data-val="sf">SF Pro</button>
+    </div>
+  </div>
+  <div class="tgroup" data-only-apres><span>Header</span>
+    <div class="seg" data-key="logo">
+      <button aria-pressed="false" data-val="full">Logo + nom</button>
+      <button aria-pressed="true" data-val="mark">Logo seul</button>
+    </div>
+  </div>
+  <div class="tgroup" data-only-apres><span>Échelle</span>
+    <div class="seg" data-key="scale">
+      <button aria-pressed="false" data-val="ample">Ample</button>
+      <button aria-pressed="true" data-val="compact">Compacte</button>
+    </div>
+  </div>
+  <div class="tgroup" data-only-apres><span>Hero</span>
+    <div class="seg" data-key="hero">
+      <button aria-pressed="true" data-val="center">Centré</button>
+      <button aria-pressed="false" data-val="cols">2 colonnes</button>
+    </div>
+  </div>
+  <div class="tgroup" data-only-apres><span>Problème</span>
+    <div class="seg" data-key="problem">
+      <button aria-pressed="true" data-val="tile">Grand chiffre</button>
+      <button aria-pressed="false" data-val="acuity">Planche d'acuité</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ---------- Contenu : copie de content/site.ts ----------
+const BRAND = "OKIU", COPILOT = "CHΛRLY";
+const C = {
+  nav: { links: [["Comment ça marche","#parcours",false],["La confiance","#confiance",false],["Pour qui","#pour-qui",false],["FAQ","#faq",true]], cta: `Essayer ${BRAND}` },
+  hero: {
+    eyebrow: "Pour les dirigeants de magasins d'optique",
+    title: "Votre temps appartient à vos clients. Pas à la paperasse.",
+    lead: `${BRAND} automatise la gestion du tiers payant de votre magasin d'optique : il observe vos outils habituels, vérifie vos dossiers de bout en bout, et n'interrompt votre journée que pour les décisions qui comptent vraiment.`,
+    cta1: `Essayer ${BRAND}`, cta2: "Voir comment ça marche",
+    note: "Aucun logiciel à apprendre. Aucun changement d'habitude. Vous travaillez exactement comme aujourd'hui.",
+    caption: `Le copilote qui prépare cet écran a un nom : ${COPILOT}.`,
+    phone: { title: "Aujourd'hui", subtitle: "2 décisions en attente", items: [
+      ["warn","Pièce manquante — Dossier Martin","Ordonnance à confirmer avant envoi"],
+      ["warn","Rejet à traiter — Dossier #474","Motif : date de naissance incohérente"],
+      ["ok","Demande envoyée — Dossier #482","Traité automatiquement, 08:41"],
+      ["ok","Accusé reçu — Dossier #479","Traité automatiquement, 08:22"]], tabs:["Décisions","Journal"] }
+  },
+  probleme: {
+    eyebrow: "Le problème", title: "Chaque vente laisse un dossier de tiers payant invisible.",
+    p: ["Derrière chaque paire de lunettes vendue, un dossier se met en route : vérifier l'ordonnance, contrôler la prise en charge, rapprocher les documents, suivre le remboursement, relancer en cas de rejet. Ce travail ne se voit jamais au comptoir. Il se voit dans votre emploi du temps.",
+        "Ce temps ne s'additionne jamais en une seule tâche : une relance ici, une pièce manquante à réclamer là, un dossier repris depuis le début parce que la télétransmission n'est pas passée. Et chaque minute qu'il prend est une minute volée au client suivant — à l'accueil, au conseil, à une seconde paire proposée au bon moment."],
+    stat: { figure: "45 minutes", detail: "pour 70 € de remboursement", text: "C'est ce que nous racontent des opticiens : le temps passé à sécuriser une seule prise en charge peut dépasser largement ce qu'elle rapporte — et ce temps-là n'est jamais passé avec un client." },
+    chips: [["Contrôle des ordonnances",true],["Vérification des prises en charge",true],["Rapprochement des documents",false],["Suivi des remboursements",true],["Traitement des rejets",false],["Relances administratives",false]]
+  },
+  solution: {
+    eyebrow: "La solution", title: "Un copilote qui automatise le tiers payant au-dessus de vos outils et de vos mutuelles, pas à leur place.",
+    lead: `Concrètement, ${BRAND} relie ce qui aujourd'hui reste séparé : votre logiciel métier, vos e-mails, et les plateformes des mutuelles où se joue la prise en charge. Il ne remplace aucun de ces outils, il les fait parler entre eux.`,
+    piliers: [["01","Il observe",`${BRAND} regarde votre logiciel habituel et vos e-mails, sans rien changer à vos habitudes de travail ni à vos outils.`,"eye"],
+              ["02","Il vérifie et agit",`Quand une tâche est fiable et bien maîtrisée, ${BRAND} l'exécute lui-même : recherche du dossier, envoi de la demande, suivi de la réponse.`,"check"],
+              ["03","Il vous alerte si besoin",`Erreur, ambiguïté, dossier incomplet : ${BRAND} s'arrête et vous prévient. Jamais d'action à l'aveugle.`,"bell"]]
+  },
+  parcours: { eyebrow: "Le parcours, concrètement", title: `Une journée de prise en charge avec ${BRAND}`, etapes: [
+    ["Le dossier est créé",`Vous importez tous les documents nécessaires (mutuelle, ordonnance). ${BRAND} enregistre le dossier.`],
+    [`${BRAND} vérifie le dossier`,"Assuré, prise en charge, pièces jointes : si tout est en ordre, il envoie lui-même la demande à la mutuelle."],
+    ["Il suit la réponse",`Accusé de réception, rejet et son motif, silence, statut du remboursement : ${BRAND} suit ce qui revient de la mutuelle et comprend pourquoi, sans que vous ayez à aller chercher l'information.`],
+    ["Vous recevez une liste courte","Sur votre téléphone, seulement les décisions qui ont vraiment besoin de vous : une erreur, un rejet, un dossier incomplet."],
+    [`Vous décidez, ${BRAND} garde la mémoire`,`Un geste suffit. Tout ce que ${BRAND} a fait automatiquement reste consultable à tout moment, dans un journal clair.`]] },
+  confiance: { eyebrow: "La confiance d'abord", title: "Jamais d'exécution à l'aveugle, même face à un rejet.",
+    lead: `${BRAND} commence toujours en mode supervisé : chaque envoi automatique reste visible avant d'être confirmé, le temps de construire la confiance à votre rythme.`,
+    garanties: ["Tout est tracé, à tout moment consultable","Rien ne s'automatise tant que ce n'est pas fiable","Vous gardez toujours la main sur les décisions"],
+    journal: { heading: "Journal d'actions", rows: [["Demande envoyée — Dossier #482","08:41"],["Accusé reçu — Dossier #479","08:22"],["Rejet qualifié — Dossier #474","08:05"],["Demande envoyée — Dossier #471","07:58"]] } },
+  pilote: { quote: `${BRAND} est aujourd'hui testé en conditions réelles chez Ver'Optic, magasin pilote du programme.`, cite: "Programme pilote — 2026" },
+  pourQui: { eyebrow: "Pour qui", title: "Pensé pour les dirigeants de magasin d'optique",
+    p: [`${BRAND} s'adresse aux dirigeants de magasins d'optique — indépendants, adhérents d'une enseigne ou d'un groupement — qui font l'accueil, le conseil, la vente, et l'administratif le soir. Pas aux structures qui ont déjà une équipe dédiée au tiers payant.`,
+        "Il fonctionne aujourd'hui au-dessus de Polylogic, en lecture seule : il n'écrit rien dans votre logiciel métier, il s'en sert pour savoir quels dossiers demandent une prise en charge. La compatibilité avec d'autres logiciels (Cosium, Optimum, Osmose, WinOptics, MyEasyOptic) viendra ensuite — dites-nous le vôtre dans le formulaire, c'est ce qui guidera l'ordre."],
+    callout: "Vous utilisez un autre logiciel que Polylogic ? Candidatez quand même : votre réponse compte dans nos priorités." },
+  faq: { eyebrow: "Questions directes", title: "Ce que vous vous demandez sûrement", items: [
+    [`${BRAND} remplace-t-il mon logiciel métier ?`,`Non, et il n'essaiera pas. ${BRAND} se place au-dessus de vos outils existants — Polylogic, vos emails, les plateformes des mutuelles — et les fait travailler ensemble. Vous ne changez rien à votre installation, rien à vos habitudes de vente. Il lit, il rapproche, il agit sur les plateformes des mutuelles ; votre logiciel métier reste le vôtre.`],
+    ["Est-ce compliqué à mettre en place ?",`Non. ${BRAND} s'installe sur l'infrastructure de votre magasin, se connecte en lecture seule à Polylogic et à vos e-mails, et démarre en mode supervisé. Il n'y a rien à configurer, rien à apprendre : vous continuez à vendre et à conseiller comme avant, ${BRAND} s'adapte à vos habitudes — pas l'inverse.`],
+    ["Et s'il fait une erreur en mon nom ?",`C'est la question que nous nous sommes posée en premier, et elle a façonné tout le produit. Trois garde-fous : ${BRAND} n'agit que sur des opérations qu'il connaît parfaitement, étape par étape — face à la moindre situation inconnue, il s'arrête et vous prévient, il n'improvise jamais. Au démarrage, il fonctionne en mode supervisé : chaque envoi vous est présenté avant confirmation, tant que la confiance se construit. Et chaque action est inscrite dans un journal que vous consultez quand vous voulez : vous savez toujours ce qui a été fait en votre nom, et quand.`],
+    ["Que se passe-t-il si le site de la mutuelle change ?",`${BRAND} s'arrête et vous le dit. C'est un principe, pas une limitation : plutôt que de « tenter sa chance » sur une page qu'il ne reconnaît plus, il met le dossier de côté, vous alerte, et nous mettons à jour sa connaissance de la plateforme. Aucune demande n'est envoyée à l'aveugle.`],
+    ["Qui voit mes données ?",`Personne d'autre que vous. En version pilote, ${BRAND} est installé sur l'infrastructure de votre magasin : vos dossiers clients ne partent pas dans un cloud tiers. Les seules données qui transitent sont celles que vous transmettez déjà vous-même aux mutuelles — ${BRAND} le fait à votre place, pas à sa manière.`],
+    ["Avec quels logiciels métier fonctionne-t-il ?","Polylogic aujourd'hui. Cosium, Optimum, Osmose, WinOptics et MyEasyOptic sont sur la feuille de route, dans l'ordre que les demandes des magasins pilotes dessineront."],
+    ["Combien ça coûte ?",`Réponse honnête : ${BRAND} est en phase pilote, construit en conditions réelles avec un premier magasin. Les conditions se discutent au cas par cas avec les prochains magasins pilotes — l'engagement est simple et le risque financier volontairement minime. Le prix définitif sera fixé quand le produit aura prouvé, chiffres à l'appui, le temps qu'il rend.`]] },
+  cta: { eyebrow: "Le programme pilote", title: "Rendez du temps à votre métier",
+    intro: `Nous ouvrons progressivement ${BRAND} à quelques magasins pilotes. Dites-nous qui vous êtes — nous revenons vers vous rapidement, sans démarchage et sans engagement.`,
+    fields: [["Votre nom","Prénom et nom","input"],["Nom du magasin","Nom de votre magasin","input"],["Ville","Commencez à taper le nom de votre ville…","input"],["Votre email","vous@votremagasin.fr","input"],["Votre logiciel métier","Sélectionner…","select"],["Un mot sur votre situation (facultatif)","Ce qui vous prend le plus de temps aujourd'hui…","textarea"]],
+    submit: "Envoyer la demande",
+    rgpd: "Ces informations servent uniquement à vous recontacter au sujet du pilote. Elles ne sont ni partagées, ni utilisées à d'autres fins.", rgpdLink: "Politique de confidentialité →" },
+  footer: { tagline: "Le temps rendu à l'opticien.", links: ["Mentions légales","Confidentialité","Nous contacter"], copyright: `© ${BRAND}` }
+};
+
+// ---------- Gabarits ----------
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const arrow = `<svg class="btn-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>`;
+const chev = `<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>`;
+const icons = {
+  eye: `<svg viewBox="0 0 24 24"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  check: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></svg>`,
+  bell: `<svg viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.8 2H4.2z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>`
+};
+const glasses = `<svg viewBox="0 0 340 130" aria-hidden="true">
+  <path class="temple" pathLength="1" d="M28 62 C18 58 10 50 4 40"/>
+  <path class="temple" pathLength="1" d="M312 62 C322 58 330 50 336 40"/>
+  <rect class="lens" pathLength="1" x="28" y="34" width="118" height="72" rx="30"/>
+  <rect class="lens" pathLength="1" x="194" y="34" width="118" height="72" rx="30"/>
+  <path pathLength="1" d="M146 62 C154 48 186 48 194 62"/>
+  <path pathLength="1" d="M52 54 C58 46 70 44 80 46" opacity=".55"/>
+  <path pathLength="1" d="M218 54 C224 46 236 44 246 46" opacity=".55"/>
+</svg>`;
+
+function logo(){ return `<a class="logo" href="#"><span class="logo-mark" aria-hidden="true"><span class="a"></span><span class="b"></span></span><span class="logo-text">${BRAND}</span></a>`; }
+function phone(){
+  const p = C.hero.phone;
+  return `<div class="phone-stage"><div class="phone" aria-hidden="true"><div class="phone-screen">
+    <div class="phone-notch"><div class="pill"></div></div>
+    <div class="phone-top"><div class="ptitle">${p.title}</div><div class="psub">${p.subtitle}</div></div>
+    <div class="phone-list">${p.items.map(([st,t,s])=>`<div class="p-item${st==='warn'?' attn':''}"><span class="dot ${st}"></span><div><div class="t">${esc(t)}</div><div class="s">${esc(s)}</div></div></div>`).join("")}</div>
+    <div class="phone-tab">${p.tabs.map((t,i)=>`<div class="${i===0?'active':''}">${t}</div>`).join("")}</div>
+  </div></div></div>`;
+}
+function render(variant){
+  const A = variant === "apres";
+  const h = C.hero, pr = C.probleme, so = C.solution, pa = C.parcours, co = C.confiance, pq = C.pourQui, fq = C.faq, ct = C.cta, ft = C.footer;
+  const acuityRows = pr.chips.map(([l],i)=>`<div class="row r${i+1}"><span class="n">${(i+1)*2}/10</span><span>${esc(l)}</span></div>`).join("");
+  return `
+  <header><nav class="wrap nav-bar">${logo()}
+    <div class="nav-links">${C.nav.links.map(([l,href,m])=>`<a class="nav-link${m?' nav-link-mobile':''}" href="${href}">${l}</a>`).join("")}</div>
+    <a class="btn btn-primary nav-cta" href="#">${C.nav.cta}${arrow}</a></nav></header>
+
+  <section class="hero page-section"><div class="wrap hero-grid">
+    <div class="hero-text">
+      <div class="eyebrow">${h.eyebrow}</div>
+      <h1>${h.title}</h1>
+      <p class="lead">${esc(h.lead)}</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#">${h.cta1}${arrow}</a>
+        <a class="btn btn-ghost" href="#">${h.cta2}</a>
+        <a class="textlink" href="#">${h.cta2}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></a>
+      </div>
+      <div class="hero-note">${h.note}</div>
+    </div>
+    <div class="phone-column">${phone()}<p class="phone-caption">${h.caption}</p></div>
+  </div></section>
+
+  <section class="section-line page-section s-white"><div class="wrap problem-grid">
+    <div>
+      <div class="eyebrow">${pr.eyebrow}</div>
+      <h2 class="h2">${pr.title}</h2>
+      ${pr.p.map(x=>`<p>${esc(x)}</p>`).join("")}
+      <div class="stat-highlight"><div class="stat-highlight-figure">${pr.stat.figure} <span>${pr.stat.detail}</span></div><p class="stat-highlight-text">${esc(pr.stat.text)}</p></div>
+    </div>
+    <div class="problem-side">
+      <div class="chip-cloud">${pr.chips.map(([l,hot])=>`<span class="chip${hot?' hot':''}">${l}</span>`).join("")}</div>
+      <div class="bigstat"><div class="fig">45<small>min</small></div><div class="sub">${pr.stat.detail}</div><p class="txt">${esc(pr.stat.text)}</p></div>
+      <ul class="tasklist">${pr.chips.map(([l])=>`<li>${l}</li>`).join("")}</ul>
+      <div class="acuity"><div class="ah"><span>Ce que le comptoir ne voit pas</span><span>OD / OG</span></div>${acuityRows}<div class="af"><b>45 min</b> ${pr.stat.detail} — et jamais avec un client.</div></div>
+    </div>
+  </div></section>
+
+  <section class="page-section"><div class="wrap">
+    <div class="sec-head center"><div class="eyebrow">${so.eyebrow}</div><h2 class="h2">${so.title}</h2><p class="lead">${esc(so.lead)}</p></div>
+    <div class="cards3">${so.piliers.map(([n,t,x,ic])=>`<div class="card"><div class="num">${n}</div><div class="ico">${icons[ic]}</div><h3>${t}</h3><p>${esc(x)}</p></div>`).join("")}</div>
+  </div></section>
+
+  <section class="journey section-line page-section s-white"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow">${pa.eyebrow}</div><h2 class="h2">${pa.title}</h2></div>
+    <div class="journey-grid">
+      <div class="timeline">${pa.etapes.map(([t,x],i)=>`<div class="tl-item"><div class="tl-ring">${i+1}</div><h3>${t}</h3><p>${esc(x)}</p></div>`).join("")}</div>
+      <div class="journey-phone">${phone()}</div>
+    </div>
+  </div></section>
+
+  <section class="page-section"><div class="wrap trust-grid">
+    <div><div class="eyebrow">${co.eyebrow}</div><h2 class="h2">${co.title}</h2><p class="lead">${esc(co.lead)}</p>
+      <ul class="trust-list">${co.garanties.map(g=>`<li><span class="check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5L4.5 9L10 3" stroke="#1f6f63" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>${g}</li>`).join("")}</ul></div>
+    <div class="journal-card"><div class="jh">${co.journal.heading}</div>${co.journal.rows.map(([l,t])=>`<div class="journal-row"><span class="l">${l}</span><span class="r">${t}</span></div>`).join("")}</div>
+  </div></section>
+
+  <section class="pilot section-line page-section s-white"><div class="wrap"><blockquote>${C.pilote.quote}<cite>${C.pilote.cite}</cite></blockquote></div></section>
+
+  <section class="section-line page-section"><div class="wrap pourqui-grid">
+    <div class="pourqui-art">${glasses}</div>
+    <div class="pourqui-body"><div class="eyebrow">${pq.eyebrow}</div><h2 class="h2">${pq.title}</h2>${pq.p.map(x=>`<p>${esc(x)}</p>`).join("")}<div class="callout">${pq.callout}</div></div>
+  </div></section>
+
+  <section class="section-line page-section s-white"><div class="wrap faq-body">
+    <div class="eyebrow">${fq.eyebrow}</div><h2 class="h2">${fq.title}</h2>
+    <div class="faq-list">${fq.items.map(([q,a],i)=>`<details class="faq-item"${i===0?' open':''}><summary>${q}<span class="plus">+</span>${chev}</summary><p>${esc(a)}</p></details>`).join("")}</div>
+  </div></section>
+
+  <section class="page-section"><div class="wrap"><div class="cta-final">
+    <div class="eyebrow">${ct.eyebrow}</div><h2>${ct.title}</h2><p class="cta-intro">${esc(ct.intro)}</p>
+    <form class="cta-form" onsubmit="return false">${ct.fields.map(([l,ph,k])=>`<div class="field"><label>${l}</label>${k==='textarea'?`<textarea placeholder="${ph}"></textarea>`:k==='select'?`<select><option>${ph}</option></select>`:`<input placeholder="${ph}">`}</div>`).join("")}
+      <button class="btn btn-primary" type="button">${ct.submit}</button>
+      <p class="rgpd-note">${ct.rgpd} <a href="#">${ct.rgpdLink}</a></p></form>
+  </div></div></section>
+
+  <footer><div class="wrap footer-row">${logo()}<div class="tag">${ft.tagline}</div><nav class="footer-links">${ft.links.map(l=>`<a href="#">${l}</a>`).join("")}</nav><div class="tag">${ft.copyright}</div></div></footer>`;
+}
+
+// ---------- Notes ----------
+const NOTES = [
+  ["1. Surfaces au lieu de traits","Plus aucune bordure 1 px sur les cartes, la FAQ, le journal, le callout ni entre les sections. Les sections alternent blanc et gris clair ; les tuiles prennent la couleur opposée, rayon 26 px, une ombre très douce.","Solution, Confiance, FAQ, Pour qui"],
+  ["2. Typographie plus ample, plus serrée","H1 jusqu'à 76 px, interlettrage −0,022 em, interligne 1,02. H2 jusqu'à 48 px. Lead 21 px. Le corps de texte passe en encre sombre (85 %) ; le gris ne sert plus qu'aux légendes.","Partout — comparer la lisibilité des paragraphes"],
+  ["3. Hero centré, produit en dessous","Titre, lead et boutons centrés, téléphone seul à 320 px avec un halo teal. Le second bouton devient un lien texte avec chevron. L'option « 2 colonnes » garde la grille actuelle avec le reste des changements.","Hero — interrupteur Hero"],
+  ["4. Eyebrows allégés","Plus de point teal ni de capitales : une courte ligne grise au-dessus du titre, qui ne concurrence plus le H2.","Toutes les sections"],
+  ["5. Header compact","56 px au lieu de 76, sans trait, blur 20 px saturé, logo 16 px, liens 13 px, CTA 36 px de haut.","En haut de chaque maquette (il reste collé au défilement)"],
+  ["6. Problème rééquilibré","La colonne de chips devient une tuile « 45 min » en grand corps, suivie des six tâches invisibles en liste. Variante clin d'œil opticien : la planche d'acuité, les tâches rapetissent comme sur le tableau du cabinet (jamais en dessous du contraste AA).","Problème — interrupteur Problème"],
+  ["7. Parcours avec téléphone collant","Deux colonnes sur desktop : les cinq étapes à gauche, le même écran de téléphone à droite, collant pendant le défilement. Sur mobile, la liste seule, comme aujourd'hui.","Parcours — faire défiler en vue côte à côte"],
+  ["8. FAQ en liste à filets","Plus de cartes : une liste avec filets, question à 17 px, chevron qui pivote. La première est ouverte pour montrer la réponse.","FAQ"],
+  ["9. Boutons et micro-interactions","Plus de « lift » avec grosse ombre au survol : le bouton s'éclaircit à peine. Le téléphone est incliné en pseudo-3D (perspective CSS) et se redresse au survol ; le H1 fait sa mise au point au chargement, métaphore de la vision.","Hero — survoler le téléphone, recharger la page"],
+  ["10. Icônes mono-trait pour les trois piliers","Œil, coche, cloche en SVG 1,6 px teal dans une pastille douce. Ils remplacent les numéros 01 / 02 / 03, qui n'encodaient aucun ordre réel.","Solution"],
+  ["Touche optique : lunettes mono-trait","Un dessin de monture au trait, animé une fois au chargement (tracé progressif), équilibre la section Pour qui qui n'était que du texte. Aucune dépendance, aucune image bitmap.","Pour qui"],
+  ["Police : Fraunces, Inter serré, Geist ou SF Pro","Fraunces reste la signature du site ; resserré et agrandi, il tient bien la comparaison. Inter serré (déjà chargé, coût nul) est le doublon classique de SF Pro Text. Geist, la police de Vercel, est la plus proche de SF Pro Display en titres, disponible dans next/font sans requête externe. SF Pro est la police d'Apple elle-même : rendue ici par la police système de votre Mac, elle ne peut pas être auto-hébergée (licence Apple) ; sur le vrai site, elle n'apparaîtrait que sur iPhone et Mac, les PC Windows et Android verraient Segoe UI ou Roboto. Dans toutes les options sans-serif, tout le site passe en une seule famille, comme chez Apple.","Interrupteur Police"],
+  ["Header : logo seul","Le geste Apple par excellence, mais la marque OKIU n'a pas encore de reconnaissance : le rond teal au point ambre ne dit pas encore « OKIU » à un opticien qui arrive par le bouche-à-oreille. Le nom reste dans le hero (lead), le titre d'onglet et le footer.","Interrupteur Header"],
+  ["Échelle : ample ou compacte","Compacte ramène le H1 à 64 px maximum, les H2 à 42 px, le lead à 19 px et le corps à 17 px, la taille de corps qu'utilise Apple. Le hero garde son effet d'affiche, le reste respire un peu moins fort.","Interrupteur Échelle"],
+];
+document.getElementById("notes").innerHTML = NOTES.map(([t,p,w])=>`<div class="note"><h3>${t}</h3><p>${p}</p><span class="where">Où le voir : ${w}</span></div>`).join("");
+
+// ---------- Rendu + réglages ----------
+const mockAvant = document.getElementById("mockAvant"), mockApres = document.getElementById("mockApres");
+mockAvant.innerHTML = render("avant"); mockApres.innerHTML = render("apres");
+const frames = document.getElementById("frames");
+const state = { mode:"side", which:"apres", heads:"geist", hero:"center", problem:"tile", logo:"mark", scale:"compact" };
+try { const saved = JSON.parse(localStorage.getItem("okiu-compare")||"{}"); if (saved.v === 2) Object.assign(state, saved); } catch(e){}
+
+function applyZoom(){
+  const w = frames.clientWidth;
+  [mockAvant, mockApres].forEach(m => {
+    if (state.mode === "side" && w > 900) m.style.zoom = ((w - 20) / 2) / 1200;
+    else if (state.mode === "side") m.style.zoom = Math.min(1, w / 1200);
+    else m.style.zoom = 1;
+  });
+}
+function apply(){
+  frames.dataset.mode = state.mode;
+  document.getElementById("whichGroup").hidden = state.mode !== "full";
+  document.getElementById("frameAvant").dataset.hidden = (state.mode==="full" && state.which!=="avant") ? "1" : "0";
+  document.getElementById("frameApres").dataset.hidden = (state.mode==="full" && state.which!=="apres") ? "1" : "0";
+  mockApres.dataset.heads = state.heads; mockApres.dataset.hero = state.hero; mockApres.dataset.problem = state.problem; mockApres.dataset.logo = state.logo; mockApres.dataset.scale = state.scale;
+  document.querySelectorAll("[data-only-apres]").forEach(g => g.dataset.off = (state.mode==="full" && state.which==="avant") ? "1" : "0");
+  document.querySelectorAll(".seg").forEach(seg => {
+    const k = seg.dataset.key;
+    seg.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.val === state[k])));
+  });
+  applyZoom();
+  try { localStorage.setItem("okiu-compare", JSON.stringify({ ...state, v: 2 })); } catch(e){}
+}
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => { state[b.closest(".seg").dataset.key] = b.dataset.val; apply(); }));
+window.addEventListener("resize", applyZoom);
+apply();
+</script>

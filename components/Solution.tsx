@@ -1,4 +1,5 @@
 import { site } from "@/content/site";
+import PilierIcon from "./PilierIcon";
 import Reveal from "./Reveal";
 
 export default function Solution() {
@@ -16,7 +17,9 @@ export default function Solution() {
           <div className="cards3">
             {solution.piliers.map((pilier) => (
               <div key={pilier.num} className="card">
-                <div className="num">{pilier.num}</div>
+                <div className="ico">
+                  <PilierIcon name={pilier.icon} />
+                </div>
                 <h3>{pilier.title}</h3>
                 <p>{pilier.text}</p>
               </div>

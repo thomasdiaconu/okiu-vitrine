@@ -208,6 +208,8 @@ header {
   font-size: 18px;
   text-decoration: none;
   flex: none;
+  padding: 9px;
+  margin: -9px;
 }
 
 .logo-mark {

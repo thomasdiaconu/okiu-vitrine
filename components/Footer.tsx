@@ -5,13 +5,13 @@ export default function Footer() {
   return (
     <footer>
       <div className="wrap footer-row">
-        <Link href="/" className="logo">
+        <a href="/" className="logo">
           <span className="logo-mark" aria-hidden="true">
             <span className="a" />
             <span className="b" />
           </span>
           {site.brand}
-        </Link>
+        </a>
         <div className="tag">{site.footer.tagline}</div>
         <nav className="footer-links" aria-label="Liens légaux">
           {site.footer.legalLinks.map((link) => (

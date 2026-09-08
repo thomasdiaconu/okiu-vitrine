@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { site } from "@/content/site";
 import ArrowIcon from "./ArrowIcon";
 
@@ -6,13 +5,13 @@ export default function Header() {
   return (
     <header>
       <nav className="wrap nav-bar" aria-label="Navigation principale">
-        <Link href="/" className="logo">
+        <a href="/" className="logo">
           <span className="logo-mark" aria-hidden="true">
             <span className="a" />
             <span className="b" />
           </span>
           <span className="visually-hidden">{site.brand}</span>
-        </Link>
+        </a>
         <div className="nav-links">
           {site.nav.links.map((link) => (
             <a

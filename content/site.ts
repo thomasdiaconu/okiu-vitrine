@@ -206,10 +206,10 @@ export const site = {
     title: "Pensé pour les dirigeants de magasin d'optique",
     paragraphs: [
       `${BRAND} s'adresse aux dirigeants de magasins d'optique — indépendants, adhérents d'une enseigne ou d'un groupement — qui font l'accueil, le conseil, la vente, et l'administratif le soir. Pas aux structures qui ont déjà une équipe dédiée au tiers payant.`,
-      "Il fonctionne aujourd'hui au-dessus de Polylogic, en lecture seule : il n'écrit rien dans votre logiciel métier, il s'en sert pour savoir quels dossiers demandent une prise en charge. La compatibilité avec d'autres logiciels (Cosium, Optimum, Osmose, WinOptics, MyEasyOptic) viendra ensuite — dites-nous le vôtre dans le formulaire, c'est ce qui guidera l'ordre.",
+      "Il fonctionne au-dessus de votre logiciel métier — Polylogic, ou un autre — en lecture seule : il n'écrit rien dans votre outil, il s'en sert pour savoir quels dossiers demandent une prise en charge. Polylogic est le premier connecté ; la compatibilité avec les autres (Cosium, Optimum, Osmose, WinOptics, MyEasyOptic) suit, dans l'ordre que les demandes des magasins pilotes dessineront — dites-nous le vôtre dans le formulaire.",
     ],
     callout:
-      "Vous utilisez un autre logiciel que Polylogic ? Candidatez quand même : votre réponse compte dans nos priorités.",
+      "Vous utilisez un autre logiciel métier que Polylogic ? Candidatez quand même : votre réponse compte dans nos priorités de compatibilité.",
   },
 
   faq: {

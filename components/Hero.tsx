@@ -1,4 +1,5 @@
 import { site } from "@/content/site";
+import ArrowIcon from "./ArrowIcon";
 import PhoneMockup from "./PhoneMockup";
 
 export default function Hero() {
@@ -14,6 +15,7 @@ export default function Hero() {
           <div className="hero-ctas">
             <a href={hero.ctaPrimary.href} className="btn btn-primary">
               {hero.ctaPrimary.label}
+              <ArrowIcon />
             </a>
             <a href={hero.ctaSecondary.href} className="btn btn-ghost">
               {hero.ctaSecondary.label}
@@ -21,7 +23,10 @@ export default function Hero() {
           </div>
           <div className="hero-note">{hero.note}</div>
         </div>
-        <PhoneMockup data={hero.phone} />
+        <div className="phone-column">
+          <PhoneMockup data={hero.phone} />
+          <p className="phone-caption">{hero.phoneCaption}</p>
+        </div>
       </div>
     </section>
   );

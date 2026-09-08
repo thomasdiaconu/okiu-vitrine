@@ -72,6 +72,15 @@ svg {
   box-shadow: 0 10px 24px rgba(18, 24, 27, 0.18);
 }
 
+.btn-arrow {
+  flex: none;
+  transition: transform 0.18s ease;
+}
+
+.btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
 .btn-ghost {
   background: transparent;
   color: var(--ink);
@@ -381,6 +390,20 @@ footer .tag {
   color: var(--ink-soft);
 }
 
+.phone-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.phone-caption {
+  max-width: 260px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
 .phone-stage {
   display: flex;
   justify-content: center;
@@ -555,6 +578,39 @@ footer .tag {
   border-color: rgba(31, 111, 99, 0.28);
   background: rgba(31, 111, 99, 0.06);
   font-weight: 600;
+}
+
+.stat-highlight {
+  margin-top: 28px;
+  padding: 20px 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--amber);
+  border-radius: var(--radius);
+  max-width: 460px;
+}
+
+.stat-highlight-figure {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 560;
+  font-size: clamp(24px, 3.4vw, 30px);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.stat-highlight-figure span {
+  font-family: var(--font-inter), -apple-system, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: normal;
+  color: var(--ink-soft);
+  margin-left: 6px;
+}
+
+.stat-highlight-text {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--ink-soft);
 }
 
 .solution-head {
@@ -1214,6 +1270,10 @@ footer .tag {
   }
 
   .faq-item summary::after {
+    transition: none;
+  }
+
+  .btn-arrow {
     transition: none;
   }
 }

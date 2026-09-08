@@ -14,6 +14,12 @@ export default function Probleme() {
             {probleme.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
+            <div className="stat-highlight">
+              <div className="stat-highlight-figure">
+                {probleme.stat.figure} <span>{probleme.stat.detail}</span>
+              </div>
+              <p className="stat-highlight-text">{probleme.stat.text}</p>
+            </div>
           </div>
           <div className="chip-cloud">
             {probleme.chips.map((chip) => (

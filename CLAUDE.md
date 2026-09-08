@@ -4,13 +4,17 @@ Instructions de projet pour Claude Code. Lire ce fichier en entier avant toute m
 
 ## 1. Contexte
 
-OKIU est un copilote IA pour dirigeants de magasins d'optique indépendants. Il se place au-dessus des outils existants (logiciel métier Polylogic, emails, plateformes de mutuelles), automatise le cycle du tiers payant (demande de prise en charge → accusé → contrôle des rejets) et ne remonte au dirigeant, sur smartphone, que les décisions réellement humaines. Le produit est en phase pilote chez Ver'Optic.
+OKIU est un copilote IA pour dirigeants de magasins d'optique — indépendants, adhérents d'une enseigne ou d'un groupement — qui gèrent eux-mêmes l'accueil, le conseil, la vente et l'administratif de leur magasin. Il se place au-dessus des outils existants (logiciel métier Polylogic, emails, plateformes de mutuelles), automatise le cycle du tiers payant (demande de prise en charge → accusé → contrôle des rejets) et ne remonte au dirigeant, sur smartphone, que les décisions réellement humaines. Le produit est en phase pilote chez Ver'Optic.
+
+> **Cible (2026-09-08) :** la cible n'est pas limitée aux opticiens indépendants — le critère qui compte est l'absence d'une équipe dédiée au tiers payant (donc aussi les adhérents d'enseignes/groupements qui gèrent leur back-office eux-mêmes), pas le statut juridique du magasin. Voir `content/site.ts` (`pourQui`).
 
 **Ce dépôt contient uniquement le site vitrine.** Pas l'application, pas le GraphEngine, pas d'API.
 
 Objectif du site : crédibiliser OKIU auprès d'un opticien qui le découvre en 60 secondes (contact direct, bouche-à-oreille), et poser les fondations SEO. La cible lit majoritairement sur smartphone.
 
 > **Historique de marque :** le produit et ce site s'appelaient auparavant CHΛRLY (avec un Λ, lambda grec U+039B, à la place du A). Renommé OKIU après vérification de disponibilité. La maquette de référence (`docs/maquette/charly-site-vitrine.html`, figée) prédate les deux noms — voir `docs/maquette/NOTE.md`.
+
+> **CHΛRLY, nouveau sens (2026-09-08) :** le nom revient, mais pour désigner autre chose — le copilote avec lequel le dirigeant interagit *dans l'application* (le « il » de la section Solution, l'assistant qui prépare l'écran du téléphone), pas le produit/l'entreprise. `BRAND` (OKIU) reste la seule marque du site et de l'entreprise ; `COPILOT_NAME` (`content/site.ts`) est un nom distinct, à révéler avec parcimonie, pas à substituer à `BRAND`. Premier usage : la légende sous le `PhoneMockup` du hero (`hero.phoneCaption`).
 
 ## 2. Décisions figées (ne pas remettre en cause)
 

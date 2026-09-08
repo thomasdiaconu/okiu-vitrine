@@ -1,5 +1,10 @@
 export const BRAND = "OKIU";
 
+// Nom du copilote avec lequel le dirigeant interagit dans l'application (distinct de BRAND,
+// le nom du produit/entreprise). Reprend le Λ (lambda grec, U+039B) de l'ancien nom de marque —
+// voir CLAUDE.md §1, « Historique de marque ». À taper via cette constante, jamais à la main.
+export const COPILOT_NAME = "CHΛRLY";
+
 export const SITE_URL = "https://okiu.fr";
 
 export type NavLink = { label: string; href: string; mobileVisible?: boolean };
@@ -14,6 +19,7 @@ export type PhoneData = {
   tabs: string[];
   activeTab: string;
 };
+export type Stat = { figure: string; detail: string; text: string };
 export type Pilier = { num: string; title: string; text: string };
 export type Etape = { num: number; title: string; text: string };
 export type JournalRow = { label: string; time: string };
@@ -44,8 +50,8 @@ export const site = {
       { label: "Pour qui", href: "#pour-qui" },
       { label: "FAQ", href: "#faq", mobileVisible: true },
     ] satisfies NavLink[],
-    ctaDesktop: "Devenir magasin pilote",
-    ctaMobile: "Devenir pilote",
+    ctaDesktop: `Essayer ${BRAND}`,
+    ctaMobile: `Essayer ${BRAND}`,
     ctaHref: "#devenir-pilote",
   },
 
@@ -53,9 +59,10 @@ export const site = {
     eyebrow: "Pour les dirigeants de magasins d'optique",
     title: "Votre temps appartient à vos clients. Pas à la paperasse.",
     lead: `${BRAND} automatise la gestion du tiers payant de votre magasin d'optique : il observe vos outils habituels, vérifie vos dossiers de bout en bout, et n'interrompt votre journée que pour les décisions qui comptent vraiment.`,
-    ctaPrimary: { label: "Devenir magasin pilote", href: "#devenir-pilote" } satisfies CtaLink,
+    ctaPrimary: { label: `Essayer ${BRAND}`, href: "#devenir-pilote" } satisfies CtaLink,
     ctaSecondary: { label: "Voir comment ça marche", href: "#parcours" } satisfies CtaLink,
-    note: "Aucun nouveau logiciel à apprendre. Aucun changement d'habitude.",
+    note: "Aucun logiciel à apprendre. Aucun changement d'habitude. Vous travaillez exactement comme aujourd'hui.",
+    phoneCaption: `Le copilote qui prépare cet écran a un nom : ${COPILOT_NAME}.`,
     phone: {
       title: "Aujourd'hui",
       subtitle: "2 décisions en attente",
@@ -91,8 +98,13 @@ export const site = {
     title: "Chaque vente laisse un dossier de tiers payant invisible.",
     paragraphs: [
       "Derrière chaque paire de lunettes vendue, un dossier se met en route : vérifier l'ordonnance, contrôler la prise en charge, rapprocher les documents, suivre le remboursement, relancer en cas de rejet. Ce travail ne se voit jamais au comptoir. Il se voit dans votre emploi du temps.",
-      "Ce temps administratif ne s'additionne jamais en une seule tâche : c'est une relance ici, une pièce manquante à réclamer là, un dossier incomplet qu'il faut reprendre depuis le début parce que la télétransmission n'est pas passée. Le résultat est le même chaque soir : une fin de journée qui déborde sur l'administratif plutôt que sur autre chose.",
+      "Ce temps ne s'additionne jamais en une seule tâche : une relance ici, une pièce manquante à réclamer là, un dossier repris depuis le début parce que la télétransmission n'est pas passée. Et chaque minute qu'il prend est une minute volée au client suivant — à l'accueil, au conseil, à une seconde paire proposée au bon moment.",
     ],
+    stat: {
+      figure: "45 minutes",
+      detail: "pour 70 € de remboursement",
+      text: "C'est ce que nous racontent des opticiens : le temps passé à sécuriser une seule prise en charge peut dépasser largement ce qu'elle rapporte — et ce temps-là n'est jamais passé avec un client.",
+    } satisfies Stat,
     chips: [
       { label: "Contrôle des ordonnances", hot: true },
       { label: "Vérification des prises en charge", hot: true },
@@ -132,8 +144,8 @@ export const site = {
     etapes: [
       {
         num: 1,
-        title: "Une vente est enregistrée",
-        text: `Vous encaissez normalement, comme toujours. ${BRAND} voit le dossier passer, sans rien changer à votre façon de travailler.`,
+        title: "Le dossier est créé",
+        text: `Vous importez tous les documents nécessaires (mutuelle, ordonnance). ${BRAND} enregistre le dossier.`,
       },
       {
         num: 2,
@@ -187,9 +199,9 @@ export const site = {
 
   pourQui: {
     eyebrow: "Pour qui",
-    title: "Pensé pour les opticiens indépendants",
+    title: "Pensé pour les dirigeants de magasin d'optique",
     paragraphs: [
-      `${BRAND} s'adresse aux dirigeants de magasins d'optique indépendants — ceux qui font l'accueil, le conseil, la vente, et l'administratif le soir. Pas aux grands réseaux qui ont un service de gestion pour ça.`,
+      `${BRAND} s'adresse aux dirigeants de magasins d'optique — indépendants, adhérents d'une enseigne ou d'un groupement — qui font l'accueil, le conseil, la vente, et l'administratif le soir. Pas aux structures qui ont déjà une équipe dédiée au tiers payant.`,
       "Il fonctionne aujourd'hui au-dessus de Polylogic, en lecture seule : il n'écrit rien dans votre logiciel métier, il s'en sert pour savoir quels dossiers demandent une prise en charge. La compatibilité avec d'autres logiciels (Cosium, Optimum, Osmose, WinOptics, MyEasyOptic) viendra ensuite — dites-nous le vôtre dans le formulaire, c'est ce qui guidera l'ordre.",
     ],
     callout:
@@ -203,6 +215,10 @@ export const site = {
       {
         question: `${BRAND} remplace-t-il mon logiciel métier ?`,
         answer: `Non, et il n'essaiera pas. ${BRAND} se place au-dessus de vos outils existants — Polylogic, vos emails, les plateformes des mutuelles — et les fait travailler ensemble. Vous ne changez rien à votre installation, rien à vos habitudes de vente. Il lit, il rapproche, il agit sur les plateformes des mutuelles ; votre logiciel métier reste le vôtre.`,
+      },
+      {
+        question: "Est-ce compliqué à mettre en place ?",
+        answer: `Non. ${BRAND} s'installe sur l'infrastructure de votre magasin, se connecte en lecture seule à Polylogic et à vos e-mails, et démarre en mode supervisé. Il n'y a rien à configurer, rien à apprendre : vous continuez à vendre et à conseiller comme avant, ${BRAND} s'adapte à vos habitudes — pas l'inverse.`,
       },
       {
         question: "Et s'il fait une erreur en mon nom ?",
@@ -229,7 +245,7 @@ export const site = {
   },
 
   cta: {
-    eyebrow: "Rejoindre le pilote",
+    eyebrow: "Le programme pilote",
     title: "Rendez du temps à votre métier",
     intro: `Nous ouvrons progressivement ${BRAND} à quelques magasins pilotes. Dites-nous qui vous êtes — nous revenons vers vous rapidement, sans démarchage et sans engagement.`,
     fields: {
@@ -262,7 +278,7 @@ export const site = {
         required: false,
       } satisfies TextField,
     },
-    submitLabel: "Devenir magasin pilote",
+    submitLabel: "Envoyer la demande",
     states: {
       sending: "Envoi en cours…",
       success: "Merci ! Votre demande est bien arrivée. Nous revenons vers vous sous quelques jours.",
@@ -299,7 +315,7 @@ export const site = {
     text: "Le lien suivi est peut-être obsolète, ou l'adresse comporte une erreur. Vous pouvez repartir de l'accueil ou nous contacter directement.",
     links: [
       { label: "Retour à l'accueil", href: "/" },
-      { label: "Devenir magasin pilote", href: "/#devenir-pilote" },
+      { label: `Essayer ${BRAND}`, href: "/#devenir-pilote" },
     ],
   },
 
@@ -321,7 +337,7 @@ export const site = {
       {
         heading: "Contact",
         paragraphs: [
-          "Pour toute question relative à ce site, utilisez le formulaire « Devenir magasin pilote » en page d'accueil.",
+          "Pour toute question relative à ce site, utilisez le formulaire de candidature en page d'accueil.",
         ],
       },
       {
@@ -341,7 +357,7 @@ export const site = {
       {
         heading: "Données collectées",
         paragraphs: [
-          "Le formulaire « Devenir magasin pilote » collecte : votre nom, le nom et la ville de votre magasin, votre email, votre logiciel métier, et un message optionnel. Le champ ville s'appuie sur l'API officielle Adresse (geo.api.gouv.fr, gouvernement français) pour vous proposer une liste de communes existantes ; cet appel ne transmet que le texte que vous tapez, sans donnée personnelle.",
+          "Le formulaire de candidature au programme pilote collecte : votre nom, le nom et la ville de votre magasin, votre email, votre logiciel métier, et un message optionnel. Le champ ville s'appuie sur l'API officielle Adresse (geo.api.gouv.fr, gouvernement français) pour vous proposer une liste de communes existantes ; cet appel ne transmet que le texte que vous tapez, sans donnée personnelle.",
         ],
       },
       {
@@ -365,7 +381,7 @@ export const site = {
       {
         heading: "Vos droits",
         paragraphs: [
-          "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement et d'opposition sur vos données. Pour l'exercer, utilisez le formulaire « Devenir magasin pilote » en page d'accueil.",
+          "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement et d'opposition sur vos données. Pour l'exercer, utilisez le formulaire de candidature en page d'accueil.",
         ],
       },
     ] satisfies LegalSection[],

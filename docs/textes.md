@@ -6,16 +6,18 @@
 
 *Registre : vouvoiement, mots du métier, phrases courtes. Jamais de jargon IA hors de la FAQ où il sert à rassurer. Aucune promesse qui ne soit pas vraie en phase pilote.*
 
+*Mise à jour 2026-09-08 : section Pour qui élargie (au-delà des seuls indépendants) et FAQ complétée d'une question sur la simplicité de mise en place. Le 2e paragraphe de la section Problème (`#probleme`) et son encadré chiffré (« 45 minutes pour 70 € de remboursement ») sont également nouveaux à cette date — pas repris de la maquette. Ce chiffre décrit un ressenti rapporté par des opticiens (pas une mesure OKIU), à ne pas confondre avec `pilote.chiffres`, réservé aux résultats mesurés du pilote Ver'Optic.*
+
 ---
 
 ## Section « Pour qui » (`#pour-qui`)
 
 **Eyebrow :** Pour qui
 
-**Titre (H2) :** Pensé pour les opticiens indépendants
+**Titre (H2) :** Pensé pour les dirigeants de magasin d'optique
 
 **Texte :**
-OKIU s'adresse aux dirigeants de magasins d'optique indépendants — ceux qui font l'accueil, le conseil, la vente, et l'administratif le soir. Pas aux grands réseaux qui ont un service de gestion pour ça.
+OKIU s'adresse aux dirigeants de magasins d'optique — indépendants, adhérents d'une enseigne ou d'un groupement — qui font l'accueil, le conseil, la vente, et l'administratif le soir. Pas aux structures qui ont déjà une équipe dédiée au tiers payant.
 
 Il fonctionne aujourd'hui au-dessus de Polylogic, en lecture seule : il n'écrit rien dans votre logiciel métier, il s'en sert pour savoir quels dossiers demandent une prise en charge. La compatibilité avec d'autres logiciels (Cosium, Optimum, Osmose, WinOptics, MyEasyOptic) viendra ensuite — dites-nous le vôtre dans le formulaire, c'est ce qui guidera l'ordre.
 
@@ -33,31 +35,35 @@ Il fonctionne aujourd'hui au-dessus de Polylogic, en lecture seule : il n'écrit
 
 Non, et il n'essaiera pas. OKIU se place au-dessus de vos outils existants — Polylogic, vos emails, les plateformes des mutuelles — et les fait travailler ensemble. Vous ne changez rien à votre installation, rien à vos habitudes de vente. Il lit, il rapproche, il agit sur les plateformes des mutuelles ; votre logiciel métier reste le vôtre.
 
-### 2. Et s'il fait une erreur en mon nom ?
+### 2. Est-ce compliqué à mettre en place ?
+
+Non. OKIU s'installe sur l'infrastructure de votre magasin, se connecte en lecture seule à Polylogic et à vos e-mails, et démarre en mode supervisé. Il n'y a rien à configurer, rien à apprendre : vous continuez à vendre et à conseiller comme avant, OKIU s'adapte à vos habitudes — pas l'inverse.
+
+### 3. Et s'il fait une erreur en mon nom ?
 
 C'est la question que nous nous sommes posée en premier, et elle a façonné tout le produit. Trois garde-fous : OKIU n'agit que sur des opérations qu'il connaît parfaitement, étape par étape — face à la moindre situation inconnue, il s'arrête et vous prévient, il n'improvise jamais. Au démarrage, il fonctionne en mode supervisé : chaque envoi vous est présenté avant confirmation, tant que la confiance se construit. Et chaque action est inscrite dans un journal que vous consultez quand vous voulez : vous savez toujours ce qui a été fait en votre nom, et quand.
 
-### 3. Que se passe-t-il si le site de la mutuelle change ?
+### 4. Que se passe-t-il si le site de la mutuelle change ?
 
 OKIU s'arrête et vous le dit. C'est un principe, pas une limitation : plutôt que de « tenter sa chance » sur une page qu'il ne reconnaît plus, il met le dossier de côté, vous alerte, et nous mettons à jour sa connaissance de la plateforme. Aucune demande n'est envoyée à l'aveugle.
 
-### 4. Qui voit mes données ?
+### 5. Qui voit mes données ?
 
 Personne d'autre que vous. En version pilote, OKIU est installé sur l'infrastructure de votre magasin : vos dossiers clients ne partent pas dans un cloud tiers. Les seules données qui transitent sont celles que vous transmettez déjà vous-même aux mutuelles — OKIU le fait à votre place, pas à sa manière.
 
-### 5. Avec quels logiciels métier fonctionne-t-il ?
+### 6. Avec quels logiciels métier fonctionne-t-il ?
 
 Polylogic aujourd'hui. Cosium, Optimum, Osmose, WinOptics et MyEasyOptic sont sur la feuille de route, dans l'ordre que les demandes des magasins pilotes dessineront.
 
-### 6. Combien ça coûte ?
+### 7. Combien ça coûte ?
 
 Réponse honnête : OKIU est en phase pilote, construit en conditions réelles avec un premier magasin. Les conditions se discutent au cas par cas avec les prochains magasins pilotes — l'engagement est simple et le risque financier volontairement minime. Le prix définitif sera fixé quand le produit aura prouvé, chiffres à l'appui, le temps qu'il rend.
 
 ---
 
-## Formulaire « Devenir magasin pilote » (`#devenir-pilote`)
+## Formulaire de candidature (`#devenir-pilote`)
 
-**Eyebrow :** Rejoindre le pilote
+**Eyebrow :** Le programme pilote
 
 **Titre (H2) :** Rendez du temps à votre métier
 
@@ -73,7 +79,7 @@ Réponse honnête : OKIU est en phase pilote, construit en conditions réelles a
 | Logiciel | Votre logiciel métier | Sélectionner… / Polylogic / Cosium / Optimum / Osmose / WinOptics / MyEasyOptic / Autre | oui |
 | Message | Un mot sur votre situation *(facultatif)* | Ce qui vous prend le plus de temps aujourd'hui… | non |
 
-**Bouton :** Devenir magasin pilote
+**Bouton :** Envoyer ma candidature
 
 **États :**
 - Envoi en cours : « Envoi en cours… »
@@ -90,7 +96,8 @@ Réponse honnête : OKIU est en phase pilote, construit en conditions réelles a
 
 ## Micro-textes divers
 
-- **CTA header (desktop) :** Devenir magasin pilote — **(mobile, compact) :** Devenir pilote
+- **CTA header (desktop et mobile) :** Essayer OKIU, avec une flèche →
+- **CTA hero primaire :** Essayer OKIU, avec une flèche → *(2026-09-08 : remplace « Devenir magasin pilote » — plus invitant en point d'entrée ; le bouton d'envoi du formulaire, lui, dit « Envoyer ma candidature » pour rester honnête sur l'action réelle : une candidature, pas un essai instantané. L'eyebrow du formulaire est passée de « Rejoindre le pilote » à « Le programme pilote » pour ne plus dupliquer un verbe d'action juste au-dessus d'un bouton qui en a déjà un.)*
 - **CTA hero secondaire :** Voir comment ça marche
 - **Lien footer :** Mentions légales · Confidentialité · contact@… *(à compléter)*
 - **Mention légale (mentions légales, 1re ligne) :** OKIU est édité par [À COMPLÉTER]. *(plus de règle de double graphie depuis le renommage OKIU — la marque s'écrit normalement partout, voir CLAUDE.md)*

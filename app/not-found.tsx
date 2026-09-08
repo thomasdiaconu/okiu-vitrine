@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ArrowIcon from "@/components/ArrowIcon";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function NotFound() {
               className={`btn ${index === 0 ? "btn-ghost" : "btn-primary"}`}
             >
               {link.label}
+              {index === 1 && <ArrowIcon />}
             </Link>
           ))}
         </div>
